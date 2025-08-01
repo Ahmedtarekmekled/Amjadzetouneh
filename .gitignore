@@ -133,3 +133,4 @@ cloudinary.json
 
 # Local development
 .local 
+.vercel

@@ -14,10 +14,5 @@
   ],
   "env": {
     "NEXT_PUBLIC_API_URL": "https://your-backend-url.railway.app"
-  },
-  "functions": {
-    "frontend/src/pages/api/**/*.ts": {
-      "runtime": "nodejs18.x"
-    }
   }
 } 

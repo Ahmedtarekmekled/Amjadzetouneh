@@ -82,6 +82,20 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/socials", socialRoutes);
 app.use("/api/settings", settingsRoutes);
 
+// Serve frontend static files (for combined deployment)
+app.use(express.static(path.join(process.cwd(), 'public/frontend')));
+
+// Serve frontend for all other routes (SPA fallback)
+app.get('*', (req, res) => {
+  // Skip API routes
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ message: 'API endpoint not found' });
+  }
+  
+  // Serve frontend index.html for all other routes
+  res.sendFile(path.join(process.cwd(), 'public/frontend/index.html'));
+});
+
 // Error handling middleware
 app.use(
   (

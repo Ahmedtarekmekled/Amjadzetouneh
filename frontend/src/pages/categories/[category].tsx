@@ -99,7 +99,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     params: { category },
   }));
 
-  return { paths, fallback: true };
+  return { paths, fallback: false };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
@@ -113,12 +113,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         posts,
         category,
       },
-      revalidate: 60,
     };
   } catch (error) {
     console.error(`Error fetching posts for category ${category}:`, error);
     return {
-      notFound: true,
+      props: {
+        posts: [],
+        category,
+      },
     };
   }
 };

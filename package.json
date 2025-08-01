@@ -7,10 +7,10 @@
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "cd food-blog-backend && npm run dev",
     "dev:frontend": "cd frontend && npm run dev",
-    "build": "npm run build:backend && npm run build:frontend",
+    "build": "render-build-static.bat",
     "build:backend": "cd food-blog-backend && npm run build",
     "build:frontend": "cd frontend && npm run build",
-    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start": "cd food-blog-backend && npm start",
     "start:backend": "cd food-blog-backend && npm start",
     "start:frontend": "cd frontend && npm start",
     "install:all": "npm install && cd food-blog-backend && npm install && cd ../frontend && npm install",
@@ -19,7 +19,8 @@
     "clean:frontend": "cd frontend && rm -rf .next node_modules",
     "setup": "npm run install:all && npm run build",
     "deploy:prepare": "npm run build && npm run copy-env",
-    "copy-env": "cp food-blog-backend/.env.example food-blog-backend/.env"
+    "copy-env": "cp food-blog-backend/.env.example food-blog-backend/.env",
+    "deploy:render": "chmod +x render-build.sh && npm run build"
   },
   "keywords": [
     "food-blog",

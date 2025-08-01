@@ -6,11 +6,11 @@ echo "🚀 Starting combined build for Render..."
 echo "📦 Installing dependencies..."
 npm run install:all
 
-# Fix vulnerabilities
-echo "🔧 Fixing vulnerabilities..."
-npm audit fix --force || true
-cd food-blog-backend && npm audit fix --force || true && cd ..
-cd frontend && npm audit fix --force || true && cd ..
+# Install dependencies without fixing vulnerabilities (to preserve TypeScript types)
+echo "📦 Installing dependencies (preserving TypeScript types)..."
+npm install
+cd food-blog-backend && npm install && cd ..
+cd frontend && npm install && cd ..
 
 # Build backend
 echo "🔧 Building backend..."

@@ -1,0 +1,369 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+}
+
+.dark {
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 0, 0, 0;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+/* Add smooth transitions for theme changes */
+* {
+  transition-property: color, background-color, border-color;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+}
+
+/* Line clamp utilities */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.line-clamp-4 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.line-clamp-5 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+}
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply inline-flex justify-center items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200;
+  }
+
+  .input-primary {
+    @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm transition-colors duration-200;
+  }
+
+  .card {
+    @apply bg-white shadow rounded-lg overflow-hidden;
+  }
+
+  .card-header {
+    @apply px-4 py-5 sm:px-6 border-b border-gray-200;
+  }
+
+  .card-body {
+    @apply px-4 py-5 sm:p-6;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}
+
+/* CKEditor container */
+.ck-editor__editable {
+  min-height: 300px !important;
+  max-height: 600px;
+}
+
+/* RTL support */
+[dir="rtl"] .ck.ck-editor__editable {
+  text-align: right;
+}
+
+/* Global RTL support */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .space-x-2 > * + * {
+  margin-right: 0.5rem;
+  margin-left: 0;
+}
+
+[dir="rtl"] .space-x-4 > * + * {
+  margin-right: 1rem;
+  margin-left: 0;
+}
+
+[dir="rtl"] .ml-2 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+[dir="rtl"] .ml-4 {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+[dir="rtl"] .mr-2 {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+[dir="rtl"] .mr-4 {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+[dir="rtl"] .pl-3 {
+  padding-left: 0;
+  padding-right: 0.75rem;
+}
+
+[dir="rtl"] .pr-4 {
+  padding-right: 0;
+  padding-left: 1rem;
+}
+
+/* Toolbar styling */
+.ck.ck-toolbar {
+  border-radius: 0.375rem 0.375rem 0 0 !important;
+  background-color: #f9fafb !important;
+  border-color: #e5e7eb !important;
+}
+
+.ck.ck-editor__main > .ck-editor__editable {
+  border-radius: 0 0 0.375rem 0.375rem !important;
+  border-color: #e5e7eb !important;
+}
+
+/* Focus state */
+.ck.ck-editor__editable.ck-focused:not(.ck-editor__nested-editable) {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+}
+
+/* Recipe-specific styles */
+.ck-content .recipe-title {
+  @apply text-3xl font-bold text-gray-900 mb-4;
+}
+
+.ck-content .recipe-section {
+  @apply mt-6 mb-4;
+}
+
+.ck-content .ingredients-list {
+  @apply bg-gray-50 p-4 rounded-lg my-4;
+}
+
+.ck-content .cooking-steps {
+  @apply space-y-4 my-4;
+}
+
+.ck-content .cooking-step {
+  @apply flex items-start;
+}
+
+.ck-content .step-number {
+  @apply w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold mr-3 flex-shrink-0;
+}
+
+/* Food image styles */
+.ck-content .food-gallery-image {
+  @apply rounded-lg shadow-lg my-4;
+}
+
+.ck-content .food-gallery-image figcaption {
+  @apply text-sm text-gray-600 mt-2 text-center;
+}
+
+/* Table styles for recipe information */
+.ck-content .recipe-info-table {
+  @apply w-full my-4;
+}
+
+.ck-content .recipe-info-table th {
+  @apply bg-gray-50 text-left py-2 px-4 font-medium text-gray-700;
+}
+
+.ck-content .recipe-info-table td {
+  @apply border-t border-gray-200 py-2 px-4;
+}
+
+/* Recipe metadata */
+.ck-content .recipe-metadata {
+  @apply flex flex-wrap gap-4 text-sm text-gray-600 my-4;
+}
+
+.ck-content .recipe-metadata > div {
+  @apply flex items-center;
+}
+
+/* RTL specific adjustments */
+[dir="rtl"] .ck-content .cooking-step {
+  @apply flex-row-reverse;
+}
+
+[dir="rtl"] .ck-content .step-number {
+  @apply ml-3 mr-0;
+}
+
+/* Font sizes */
+.ck-content .text-tiny {
+  font-size: 0.7em;
+}
+
+.ck-content .text-small {
+  font-size: 0.85em;
+}
+
+.ck-content .text-big {
+  font-size: 1.4em;
+}
+
+.ck-content .text-huge {
+  font-size: 1.8em;
+}
+
+/* Highlight styles */
+.ck-content .marker-yellow {
+  background-color: #fef3c7;
+  padding: 0 0.2em;
+}
+
+.ck-content .marker-green {
+  background-color: #d1fae5;
+  padding: 0 0.2em;
+}
+
+.ck-content .marker-pink {
+  background-color: #fce7f3;
+  padding: 0 0.2em;
+}
+
+/* Table styles */
+.ck-content table {
+  @apply w-full border-collapse my-4;
+}
+
+.ck-content table td,
+.ck-content table th {
+  @apply border border-gray-200 p-2;
+}
+
+.ck-content table th {
+  @apply bg-gray-50 font-semibold;
+}
+
+/* TipTap styles */
+.ProseMirror {
+  > * + * {
+    margin-top: 0.75em;
+  }
+
+  ul,
+  ol {
+    padding: 0 1rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.1;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid #e5e7eb;
+  }
+
+  hr {
+    border: none;
+    border-top: 2px solid #e5e7eb;
+    margin: 2rem 0;
+  }
+}
+
+.ProseMirror:focus {
+  outline: none;
+}
+
+/* Quick recipe specific styles */
+.quick-recipe-grid {
+  @apply grid md:grid-cols-2 gap-6 my-6;
+}
+
+.quick-recipe .ingredients-column {
+  @apply bg-gray-50 p-4 rounded-lg;
+}
+
+.quick-recipe .steps-column {
+  @apply bg-white p-4 rounded-lg shadow-sm;
+}
+
+.quick-recipe .quick-tips {
+  @apply bg-yellow-50 p-4 rounded-lg mt-6;
+}
+
+.quick-recipe .quick-tips ul {
+  @apply mt-2 space-y-2;
+}
+
+.quick-recipe .quick-tips li {
+  @apply flex items-center text-yellow-800;
+}
+
+.quick-recipe .quick-tips li::before {
+  content: "��";
+  @apply mr-2;
+}

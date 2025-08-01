@@ -1,0 +1,9 @@
+# Create Next.js frontend project
+npx create-next-app@latest frontend --typescript --tailwind --eslint
+
+# Create backend directory
+mkdir backend
+
+# Navigate to backend and initialize
+cd backend
+npm init -y 

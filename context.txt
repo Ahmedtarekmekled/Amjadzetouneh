@@ -1,0 +1,105 @@
+Project Title:
+Bilingual Food Blog Dashboard & CMS
+
+Overview:
+Develop a dynamic, multi-language (English and Arabic) content management dashboard as part of a food blog website. The dashboard will control both the “About Me” page and blog posts. The website is built using Next.js for the frontend, Node.js for the backend (API), and MongoDB as the database. The dashboard should include rich text editing, media/file management, and secure authentication.
+
+Key Features and Requirements:
+
+User Authentication & Authorization
+
+Secure Login:
+Implement an admin login system (e.g., using JWT or session cookies) to restrict dashboard access.
+Include password hashing and possibly two-factor authentication.
+Role-Based Access (Optional):
+Support multiple user roles if you plan to expand with more admin/editor functionalities in the future.
+About Me Page Management
+
+Profile Photo:
+Ability to upload, change, and preview a profile picture.
+Personal Description & Experience:
+Provide text areas for adding a detailed personal description and listing experiences.
+Include rich text formatting capabilities (bold, italics, headers, lists, etc.) for enhanced presentation.
+CV Management:
+Allow uploading of a CV (e.g., PDF, DOCX) with file validation.
+Option to display/download the CV on the “About” page.
+Multi-Language Support:
+Enable content entry in both English (EN) and Arabic (AR) with appropriate language toggling (taking into account RTL for Arabic).
+Blog Post Management
+
+CRUD Operations:
+Create, read, update, and delete blog posts.
+Rich Text Editor:
+Integrate a robust WYSIWYG editor (such as Quill, TinyMCE, or Draft.js) that supports:
+Basic text formatting: bold, italic, underline.
+Headers and titles.
+Hyperlinks.
+Inserting tables.
+Embedding videos and images.
+Additional elements like block quotes, lists, etc.
+Multi-Language Entry:
+Allow each blog post to have content in both languages.
+Provide an interface to switch between or view both language versions.
+SEO & Metadata (Optional):
+Fields for meta titles, descriptions, and keywords.
+Scheduling (Optional):
+Ability to schedule posts for future publication.
+Media & File Handling
+
+Image Uploads:
+Support uploading images for blog posts and the about page.
+Provide basic image editing/cropping tools (if necessary).
+File Uploads:
+Manage uploads for CVs and possibly other documents.
+Cloud Storage Integration (Optional):
+Consider integrating with a cloud storage provider for managing media files.
+Backend API (Node.js/Express.js)
+
+RESTful Endpoints:
+Develop secure API endpoints for all CRUD operations related to the About page and blog posts.
+Data Validation & Error Handling:
+Validate incoming data and implement comprehensive error handling.
+Security:
+Secure API routes with proper authentication middleware.
+Implement rate limiting and logging for enhanced security.
+Database Schema (MongoDB)
+
+Collections:
+Users: For admin and possible future editor roles.
+About: A document (or collection) containing profile details, experiences, and CV links.
+BlogPosts: Documents containing title, content, language variants, media links, timestamps, and SEO data.
+Media (Optional): A dedicated collection or use GridFS for storing large files.
+Schema Design:
+Design schemas to be flexible and scalable to accommodate rich text content and multi-language support.
+Frontend (Next.js)
+
+Dashboard Interface:
+Build a responsive, modern, and intuitive UI.
+Use Next.js pages/components for dashboard views (e.g., login, content management, media manager).
+Implement client-side validation and rich previews.
+Dynamic Routing:
+Configure dynamic routing for both public pages (blog posts, about page) and admin dashboard routes.
+Localization:
+Use Next.js internationalization (i18n) support for handling English and Arabic content and layouts.
+Rich Text Preview:
+Real-time preview of blog posts as they’re being edited.
+Additional & Future-Proof Features (Optional):
+
+Version Control:
+Implement versioning for blog posts and about page content to track changes over time.
+Analytics:
+Integrate basic analytics to monitor content views and user engagement.
+Responsive Design:
+Ensure the dashboard and public pages are mobile-friendly.
+Customizable Themes:
+Provide options for light/dark modes or other UI customizations.
+Deployment & Environment Configuration
+
+Environment Variables:
+Set up configuration for different environments (development, production) for sensitive data (database URIs, secret keys).
+Build & Deployment:
+Use Vercel (or similar platforms) for deploying Next.js.
+Ensure that the Node.js backend and MongoDB are securely hosted.
+Testing & Quality Assurance:
+Write tests for API endpoints and frontend components.
+Use linting and code formatting tools for consistent code quality.

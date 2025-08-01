@@ -1,0 +1,5 @@
+# ... other entries ...
+
+# Keep uploads directory but ignore its contents
+public/uploads/*
+!public/uploads/.gitkeep 

@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
@@ -13,11 +13,7 @@ type FileType = "logo" | "favicon" | "heroBackground";
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
-  destination: (
-    req: express.Request,
-    file: Express.Multer.File,
-    cb: Function
-  ) => {
+  destination: (req: Request, file: any, cb: Function) => {
     const frontendPublicDir = path.join(
       process.cwd(),
       "../../../frontend/public"
@@ -27,7 +23,7 @@ const storage = multer.diskStorage({
     }
     cb(null, frontendPublicDir);
   },
-  filename: (req: express.Request, file: Express.Multer.File, cb: Function) => {
+  filename: (req: Request, file: any, cb: Function) => {
     const type = req.body.type as FileType;
     let filename;
 
@@ -52,42 +48,34 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Get all settings
-router.get(
-  "/",
-  authenticateToken,
-  async (req: express.Request, res: express.Response) => {
-    try {
-      const settings = await Settings.findOne();
-      res.json(settings || {});
-    } catch (error) {
-      res.status(500).json({ error: "Error fetching settings" });
-    }
+router.get("/", authenticateToken, async (req: Request, res: Response) => {
+  try {
+    const settings = await Settings.findOne();
+    res.json(settings || {});
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching settings" });
   }
-);
+});
 
 // Update settings
-router.put(
-  "/",
-  authenticateToken,
-  async (req: express.Request, res: express.Response) => {
-    try {
-      const settings = await Settings.findOneAndUpdate({}, req.body, {
-        new: true,
-        upsert: true,
-      });
-      res.json(settings);
-    } catch (error) {
-      res.status(500).json({ error: "Error updating settings" });
-    }
+router.put("/", authenticateToken, async (req: Request, res: Response) => {
+  try {
+    const settings = await Settings.findOneAndUpdate({}, req.body, {
+      new: true,
+      upsert: true,
+    });
+    res.json(settings);
+  } catch (error) {
+    res.status(500).json({ error: "Error updating settings" });
   }
-);
+});
 
 // Upload file
 router.post(
   "/upload",
   authenticateToken,
   upload.single("file"),
-  async (req: express.Request, res: express.Response) => {
+  async (req: Request, res: Response) => {
     try {
       const file = req.file;
       const type = req.body.type as FileType;
@@ -131,7 +119,7 @@ router.post(
 router.delete(
   "/upload/:type",
   authenticateToken,
-  async (req: express.Request, res: express.Response) => {
+  async (req: Request, res: Response) => {
     try {
       const type = req.params.type as FileType;
 

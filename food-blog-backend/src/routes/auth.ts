@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { authenticateToken, AuthRequest } from "../middleware/auth";
@@ -7,7 +7,7 @@ import User from "../models/User";
 const router = express.Router();
 
 // Login route
-router.post("/login", async (req, res) => {
+router.post("/login", async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
 
@@ -47,20 +47,24 @@ router.post("/login", async (req, res) => {
 });
 
 // Get current user profile
-router.get("/me", authenticateToken, async (req: AuthRequest, res) => {
-  try {
-    const user = await User.findById(req.user?._id).select("-password");
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+router.get(
+  "/me",
+  authenticateToken,
+  async (req: AuthRequest, res: Response) => {
+    try {
+      const user = await User.findById(req.user?._id).select("-password");
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ message: "Server error" });
     }
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
   }
-});
+);
 
 // Logout route
-router.post("/logout", authenticateToken, (req, res) => {
+router.post("/logout", authenticateToken, (req: Request, res: Response) => {
   try {
     // JWT tokens are stateless, so we just return success
     // In a real app, you might want to blacklist the token

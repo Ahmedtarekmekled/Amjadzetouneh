@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'export',
+  output: "export",
   trailingSlash: true,
   images: {
     unoptimized: true,
-    domains: ["localhost", "your-render-app.onrender.com"],
+    domains: ["localhost", "amjadzetouneh.onrender.com"],
     remotePatterns: [
       {
         protocol: "http",
@@ -15,13 +15,17 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "your-render-app.onrender.com",
+        hostname: "amjadzetouneh.onrender.com",
         pathname: "/uploads/**",
       },
     ],
   },
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+  },
+  // Ensure static export works properly
+  experimental: {
+    appDir: false,
   },
 };
 

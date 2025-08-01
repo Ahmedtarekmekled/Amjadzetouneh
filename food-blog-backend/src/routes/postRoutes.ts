@@ -1,4 +1,4 @@
-import express, { Router } from "express";
+import express, { Router, Response } from "express";
 import { postController } from "../controllers/postController";
 import { authenticateToken, adminOnly, AuthRequest } from "../middleware/auth";
 
@@ -16,7 +16,7 @@ router.get("/public/category/:category", postController.getPostsByCategory);
 router.get(
   "/test-auth",
   authenticateToken as express.RequestHandler,
-  (req: AuthRequest, res) => {
+  (req: AuthRequest, res: Response) => {
     res.json({
       message: "Authentication successful",
       user: req.user,

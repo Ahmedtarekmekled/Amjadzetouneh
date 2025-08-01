@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  output: 'export',
+  trailingSlash: true,
   images: {
-    domains: ["localhost"],
     unoptimized: true,
+    domains: ["localhost", "your-render-app.onrender.com"],
     remotePatterns: [
       {
         protocol: "http",
@@ -11,9 +13,16 @@ const nextConfig = {
         port: "5000",
         pathname: "/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "your-render-app.onrender.com",
+        pathname: "/uploads/**",
+      },
     ],
   },
-  // ... other config
+  env: {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+  },
 };
 
 module.exports = nextConfig;

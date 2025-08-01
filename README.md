@@ -58,7 +58,7 @@ A modern food blog built with Next.js frontend and Express.js backend, featuring
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Ahmedtarekmekled/Amjadzetouneh.git
 cd food-blog
 ```
 
@@ -316,6 +316,24 @@ If you encounter any issues or have questions:
 1. Check the [Issues](../../issues) page
 2. Create a new issue with detailed information
 3. Contact the maintainers
+
+## 🚀 Quick Deploy to Render.com
+
+**Easiest way to deploy your food blog:**
+
+1. **📋 Set up external services:**
+   - [MongoDB Atlas](https://mongodb.com/atlas) - Free database
+   - [Cloudinary](https://cloudinary.com) - Free image hosting
+
+2. **🚀 Deploy to Render:**
+   - 📖 [Complete Render Deployment Guide](RENDER_DEPLOYMENT.md)
+   - 🚀 [Quick Deploy Script](render-deploy.sh)
+
+3. **⚡ Quick steps:**
+   - Backend: Web Service → Root: `food-blog-backend` → Build: `npm install && npm run build` → Start: `npm start`
+   - Frontend: Static Site → Root: `frontend` → Build: `npm install && npm run build` → Publish: `out`
+
+**Your food blog will be live at:** `https://your-frontend-name.onrender.com`
 
 ## 🙏 Acknowledgments
 

@@ -58,4 +58,4 @@ cd food-blog-backend
 node ../create-admin-simple.js
 cd ..
 
-echo "✅ Final build completed successfully!" 
+echo "✅ Final build completed successfully! 🚀" 

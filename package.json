@@ -20,7 +20,8 @@
     "setup": "npm run install:all && npm run build",
     "deploy:prepare": "npm run build && npm run copy-env",
     "copy-env": "cp food-blog-backend/.env.example food-blog-backend/.env",
-    "deploy:render": "chmod +x render-build.sh && npm run build"
+    "deploy:render": "chmod +x render-build.sh && npm run build",
+    "setup-admin": "node setup-admin.js"
   },
   "keywords": [
     "food-blog",

@@ -1,18 +1,20 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import User from "../models/User";
+#!/usr/bin/env node
 
-dotenv.config();
+const mongoose = require("mongoose");
+require("dotenv").config();
+
+// Import the User model
+const User = require("./food-blog-backend/src/models/User");
 
 const createAdmin = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI!);
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log("Connected to MongoDB");
 
     const adminData = {
-      username: process.env.ADMIN_USERNAME || "amjad",
-      email: process.env.ADMIN_EMAIL || "amjad@gmail.com",
-      password: process.env.ADMIN_PASSWORD || "admin123",
+      username: "amjad",
+      email: "amjad@gmail.com",
+      password: "admin123",
       isAdmin: true,
     };
 
@@ -20,6 +22,8 @@ const createAdmin = async () => {
     const existingAdmin = await User.findOne({ email: adminData.email });
     if (existingAdmin) {
       console.log("Admin user already exists");
+      console.log("Email:", adminData.email);
+      console.log("Password:", adminData.password);
       await mongoose.connection.close();
       return;
     }
@@ -39,4 +43,4 @@ const createAdmin = async () => {
   }
 };
 
-createAdmin();
+createAdmin(); 

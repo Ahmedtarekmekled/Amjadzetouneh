@@ -34,6 +34,9 @@ app.use(express.static(path.join(process.cwd(), "public")));
 // Serve uploaded files
 app.use("/uploads", express.static(path.join(process.cwd(), "public/uploads")));
 
+// Serve frontend images directly
+app.use("/images", express.static(path.join(process.cwd(), "public/frontend/images")));
+
 // Authenticated file downloads
 app.use("/uploads", (req: Request, res: Response, next: NextFunction) => {
   // Check for token in query string

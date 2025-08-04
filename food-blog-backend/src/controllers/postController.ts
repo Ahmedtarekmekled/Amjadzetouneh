@@ -62,7 +62,8 @@ export const postController = {
     try {
       const posts = await Post.find({ status: "published" })
         .sort({ createdAt: -1 })
-        .populate("author", "username");
+        .populate("author", "username")
+        .lean(); // Convert to plain objects
       res.json(posts);
     } catch (error) {
       console.error("Get posts error:", error);
@@ -75,7 +76,8 @@ export const postController = {
     try {
       const posts = await Post.find()
         .sort({ createdAt: -1 })
-        .populate("author", "username");
+        .populate("author", "username")
+        .lean(); // Convert to plain objects
       res.json(posts);
     } catch (error) {
       console.error("Get all posts error:", error);
@@ -88,7 +90,8 @@ export const postController = {
       const posts = await Post.find({ status: "published" })
         .sort({ createdAt: -1 })
         .limit(6)
-        .populate("author", "username");
+        .populate("author", "username")
+        .lean(); // Convert to plain objects
       res.json(posts);
     } catch (error) {
       console.error("Get featured posts error:", error);

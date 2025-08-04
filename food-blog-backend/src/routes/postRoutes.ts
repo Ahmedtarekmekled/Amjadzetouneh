@@ -30,13 +30,15 @@ router.get(
 // General public routes - parameterized routes last
 router.get("/", postController.getAllPosts);
 router.get("/slug/:slug", postController.getPostBySlug);
-router.get("/:id", postController.getPostById);
 
-// Protected routes
+// Protected routes - must come after all public routes
 router.use(authenticateToken as express.RequestHandler);
 router.get("/admin/all", postController.getAllPostsAdmin);
 router.post("/", postController.createPost);
 router.put("/:id", postController.updatePost);
 router.delete("/:id", postController.deletePost);
+router.get("/:id", postController.getPostById);
+
+
 
 export default router;

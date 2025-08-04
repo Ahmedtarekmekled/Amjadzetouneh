@@ -28,14 +28,15 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Serve static files from the public directory
-app.use(express.static(path.join(process.cwd(), "public")));
+// Serve frontend static files first (for combined deployment)
+app.use(express.static(path.join(process.cwd(), "public/frontend")));
 
 // Serve uploaded files
 app.use("/uploads", express.static(path.join(process.cwd(), "public/uploads")));
 
-// Serve frontend images directly
-app.use("/images", express.static(path.join(process.cwd(), "public/frontend/images")));
+// Serve favicon and other static assets
+app.use("/favicon.ico", express.static(path.join(process.cwd(), "public/frontend/favicon.ico")));
+app.use("/manifest.json", express.static(path.join(process.cwd(), "public/frontend/manifest.json")));
 
 // Authenticated file downloads
 app.use("/uploads", (req: Request, res: Response, next: NextFunction) => {
@@ -96,8 +97,7 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/socials", socialRoutes);
 app.use("/api/settings", settingsRoutes);
 
-// Serve frontend static files (for combined deployment)
-app.use(express.static(path.join(process.cwd(), "public/frontend")));
+
 
 // Serve frontend for all other routes (SPA fallback)
 app.get("*", (req: Request, res: Response) => {

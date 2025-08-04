@@ -101,10 +101,9 @@ export const postController = {
 
   getPostById: (async (req: Request, res: Response) => {
     try {
-      const post = await Post.findById(req.params.id).populate(
-        "author",
-        "username"
-      );
+      const post = await Post.findById(req.params.id)
+        .populate("author", "username")
+        .lean(); // Convert to plain object
 
       if (!post) {
         return res.status(404).json({ message: "Post not found" });
@@ -119,10 +118,9 @@ export const postController = {
 
   getPostBySlug: (async (req: Request, res: Response) => {
     try {
-      const post = await Post.findOne({ slug: req.params.slug }).populate(
-        "author",
-        "username"
-      );
+      const post = await Post.findOne({ slug: req.params.slug })
+        .populate("author", "username")
+        .lean(); // Convert to plain object
 
       if (!post) {
         return res.status(404).json({ message: "Post not found" });
@@ -237,7 +235,8 @@ export const postController = {
         status: "published",
       })
         .sort({ createdAt: -1 })
-        .populate("author", "username");
+        .populate("author", "username")
+        .lean(); // Convert to plain objects
       res.json(posts);
     } catch (error) {
       console.error("Get posts by category error:", error);

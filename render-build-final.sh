@@ -51,4 +51,8 @@ fi
 echo "📁 Creating uploads directory..."
 mkdir -p food-blog-backend/public/uploads
 
+# Create admin user
+echo "🔐 Setting up admin user..."
+node create-admin-simple.js
+
 echo "✅ Final build completed successfully!" 

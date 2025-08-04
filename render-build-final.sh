@@ -40,6 +40,27 @@ if [ -d "frontend/out" ]; then
         ls -la food-blog-backend/public/frontend/
         exit 1
     fi
+    
+    # Verify static assets exist
+    echo "📁 Checking static assets..."
+    if [ -f "food-blog-backend/public/frontend/favicon.ico" ]; then
+        echo "✅ favicon.ico found"
+    else
+        echo "❌ favicon.ico not found"
+    fi
+    
+    if [ -f "food-blog-backend/public/frontend/manifest.json" ]; then
+        echo "✅ manifest.json found"
+    else
+        echo "❌ manifest.json not found"
+    fi
+    
+    if [ -d "food-blog-backend/public/frontend/images" ]; then
+        echo "✅ images directory found"
+        ls -la food-blog-backend/public/frontend/images/
+    else
+        echo "❌ images directory not found"
+    fi
 else
     echo "❌ Error: frontend/out directory not found"
     echo "Checking frontend directory contents:"

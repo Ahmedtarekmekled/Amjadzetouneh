@@ -28,11 +28,14 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Serve frontend static files first (for combined deployment)
-app.use(express.static(path.join(process.cwd(), "public/frontend")));
-
 // Serve uploaded files
 app.use("/uploads", express.static(path.join(process.cwd(), "public/uploads")));
+
+// Serve frontend static files (for combined deployment)
+app.use(express.static(path.join(process.cwd(), "public/frontend")));
+
+// Serve images directory specifically
+app.use("/images", express.static(path.join(process.cwd(), "public/frontend/images")));
 
 // Serve favicon and other static assets
 app.use("/favicon.ico", express.static(path.join(process.cwd(), "public/frontend/favicon.ico")));

@@ -8,13 +8,17 @@ const router: Router = express.Router();
 router.get("/featured", postController.getFeaturedPosts);
 
 // Category routes - must come before parameterized routes
-router.get("/category/:category", (req, res, next) => {
-  console.log("🔍 Category route accessed:", req.params.category);
-  console.log("🔍 Request method:", req.method);
-  console.log("🔍 Request path:", req.path);
-  console.log("🔍 Request headers:", req.headers);
-  next();
-}, postController.getPostsByCategory);
+router.get(
+  "/category/:category",
+  (req, res, next) => {
+    console.log("🔍 Category route accessed:", req.params.category);
+    console.log("🔍 Request method:", req.method);
+    console.log("🔍 Request path:", req.path);
+    console.log("🔍 Request headers:", req.headers);
+    next();
+  },
+  postController.getPostsByCategory
+);
 
 // Explicit public routes for frontend - must come before parameterized routes
 router.get("/public", postController.getAllPosts);

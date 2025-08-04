@@ -18,22 +18,7 @@ export async function uploadToCloudinary(
     process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
   );
 
-  // Add quality and optimization parameters
-  if (options.quality) {
-    formData.append("quality", options.quality);
-  }
-  if (options.fetch_format) {
-    formData.append("fetch_format", options.fetch_format);
-  }
-  if (options.width) {
-    formData.append("width", options.width.toString());
-  }
-  if (options.height) {
-    formData.append("height", options.height.toString());
-  }
-  if (options.crop) {
-    formData.append("crop", options.crop);
-  }
+  // Add upload options (only folder is allowed for unsigned uploads)
   if (options.folder) {
     formData.append("folder", options.folder);
   }

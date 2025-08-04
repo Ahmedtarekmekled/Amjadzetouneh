@@ -32,6 +32,13 @@ if [ -d "frontend/out" ]; then
     cp -r frontend/out/* food-blog-backend/public/frontend/
     echo "✅ Frontend files copied successfully!"
     
+    # Copy static assets from frontend/public to frontend build
+    echo "📁 Copying static assets..."
+    if [ -d "frontend/public" ]; then
+        cp -r frontend/public/* food-blog-backend/public/frontend/
+        echo "✅ Static assets copied from frontend/public"
+    fi
+    
     # Verify the index.html file exists
     if [ -f "food-blog-backend/public/frontend/index.html" ]; then
         echo "✅ index.html found in frontend build"

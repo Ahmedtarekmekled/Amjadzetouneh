@@ -76,7 +76,25 @@ body {
   }
 
   .input-primary {
-    @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm transition-colors duration-200;
+    @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm transition-colors duration-200 bg-white text-gray-900;
+  }
+
+  /* Fix transparent text inputs */
+  input, textarea, select {
+    @apply bg-white text-gray-900 !important;
+  }
+
+  input::placeholder, textarea::placeholder {
+    @apply text-gray-500;
+  }
+
+  /* Dark mode input styling */
+  .dark input, .dark textarea, .dark select {
+    @apply bg-gray-800 text-white border-gray-600;
+  }
+
+  .dark input::placeholder, .dark textarea::placeholder {
+    @apply text-gray-400;
   }
 
   .card {

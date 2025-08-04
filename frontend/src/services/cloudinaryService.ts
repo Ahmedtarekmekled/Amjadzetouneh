@@ -23,9 +23,6 @@ export async function uploadToCloudinary(
     formData.append("folder", options.folder);
   }
 
-  // Add additional optimization parameters
-  formData.append("transformation", "f_auto,q_auto:good,w_1200,h_1200,c_limit");
-
   try {
     const response = await fetch(
       `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,

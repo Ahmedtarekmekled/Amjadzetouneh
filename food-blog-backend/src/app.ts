@@ -13,8 +13,19 @@ import settingsRoutes from "./routes/settings";
 
 const app = express();
 
+// CORS configuration
+const corsOptions = {
+  origin: [
+    'https://amjadzetouneh.onrender.com',
+    'http://localhost:3000',
+    'http://localhost:5000'
+  ],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Serve static files from the public directory
@@ -92,7 +103,15 @@ app.get("*", (req: Request, res: Response) => {
     return res.status(404).json({ message: "API endpoint not found" });
   }
 
-  // Serve frontend index.html for all other routes
+  // Try to serve the requested file first
+  const filePath = path.join(process.cwd(), "public/frontend", req.path);
+  
+  // Check if file exists
+  if (require('fs').existsSync(filePath)) {
+    return res.sendFile(filePath);
+  }
+
+  // If file doesn't exist, serve index.html for SPA routing
   res.sendFile(path.join(process.cwd(), "public/frontend/index.html"));
 });
 

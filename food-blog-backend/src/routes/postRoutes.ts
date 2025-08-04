@@ -7,6 +7,9 @@ const router: Router = express.Router();
 // Public routes - specific routes first
 router.get("/featured", postController.getFeaturedPosts);
 
+// Category routes - must come before parameterized routes
+router.get("/category/:category", postController.getPostsByCategory);
+
 // Explicit public routes for frontend - must come before parameterized routes
 router.get("/public", postController.getAllPosts);
 router.get("/public/slug/:slug", postController.getPostBySlug);

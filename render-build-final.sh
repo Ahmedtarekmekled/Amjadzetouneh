@@ -53,6 +53,8 @@ mkdir -p food-blog-backend/public/uploads
 
 # Create admin user
 echo "🔐 Setting up admin user..."
-node create-admin-simple.js
+cd food-blog-backend
+npm run create-admin
+cd ..
 
 echo "✅ Final build completed successfully!" 

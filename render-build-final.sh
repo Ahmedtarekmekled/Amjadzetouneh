@@ -54,7 +54,8 @@ mkdir -p food-blog-backend/public/uploads
 # Create admin user
 echo "🔐 Setting up admin user..."
 cd food-blog-backend
-npm run create-admin
+# Use the simple admin creation script instead of ts-node
+node ../create-admin-simple.js
 cd ..
 
 echo "✅ Final build completed successfully!" 

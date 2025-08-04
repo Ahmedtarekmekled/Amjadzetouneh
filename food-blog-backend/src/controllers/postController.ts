@@ -230,6 +230,9 @@ export const postController = {
 
   getPostsByCategory: (async (req: Request, res: Response) => {
     try {
+      console.log("Category route accessed:", req.params.category);
+      console.log("Request headers:", req.headers);
+      
       const posts = await Post.find({
         categories: req.params.category,
         status: "published",
@@ -237,6 +240,8 @@ export const postController = {
         .sort({ createdAt: -1 })
         .populate("author", "username")
         .lean(); // Convert to plain objects
+      
+      console.log("Found posts:", posts.length);
       res.json(posts);
     } catch (error) {
       console.error("Get posts by category error:", error);

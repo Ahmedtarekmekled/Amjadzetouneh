@@ -45,7 +45,7 @@ router.get("/:filename", (req: Request, res: Response) => {
   try {
     const { filename } = req.params;
     const filePath = path.join(process.cwd(), "public/uploads", filename);
-    
+
     if (fs.existsSync(filePath)) {
       res.sendFile(filePath);
     } else {

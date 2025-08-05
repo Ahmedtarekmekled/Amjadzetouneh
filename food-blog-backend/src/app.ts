@@ -106,6 +106,9 @@ app.use("/api/settings", settingsRoutes);
 
 
 
+// Serve uploads directory directly
+app.use("/uploads", express.static(path.join(process.cwd(), "public/uploads")));
+
 // Serve frontend for all other routes (SPA fallback)
 app.get("*", (req: Request, res: Response) => {
   // Skip API routes

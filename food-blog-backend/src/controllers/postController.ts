@@ -195,7 +195,7 @@ export const postController = {
           slug,
         },
         { new: true }
-      ).populate("author", "username");
+      ).populate("author", "username").lean(); // Convert to plain object
 
       res.json(updatedPost);
     } catch (error) {

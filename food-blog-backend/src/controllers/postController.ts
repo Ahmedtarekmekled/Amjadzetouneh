@@ -51,7 +51,7 @@ export const postController = {
       });
 
       await post.save();
-      res.status(201).json(post);
+      res.status(201).json(post.toObject());
     } catch (error) {
       console.error("Create post error:", error);
       res.status(500).json({ message: "Error creating post" });

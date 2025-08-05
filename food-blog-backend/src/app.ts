@@ -16,12 +16,12 @@ const app = express();
 // CORS configuration
 const corsOptions = {
   origin: [
-    'https://amjadzetouneh.onrender.com',
-    'http://localhost:3000',
-    'http://localhost:5000'
+    "https://amjadzetouneh.onrender.com",
+    "http://localhost:3000",
+    "http://localhost:5000",
   ],
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 
 // Middleware
@@ -35,18 +35,36 @@ app.use("/uploads", express.static(path.join(process.cwd(), "public/uploads")));
 app.use(express.static(path.join(process.cwd(), "public/frontend")));
 
 // Serve images directory specifically
-app.use("/images", express.static(path.join(process.cwd(), "public/frontend/images")));
+app.use(
+  "/images",
+  express.static(path.join(process.cwd(), "public/frontend/images"))
+);
 
 // Serve favicon and other static assets
-app.use("/favicon.ico", express.static(path.join(process.cwd(), "public/frontend/favicon.ico")));
-app.use("/manifest.json", express.static(path.join(process.cwd(), "public/frontend/manifest.json")));
+app.use(
+  "/favicon.ico",
+  express.static(path.join(process.cwd(), "public/frontend/favicon.ico"))
+);
+app.use(
+  "/manifest.json",
+  express.static(path.join(process.cwd(), "public/frontend/manifest.json"))
+);
 
 // Serve images directory
-app.use("/images", express.static(path.join(process.cwd(), "public/frontend/images")));
+app.use(
+  "/images",
+  express.static(path.join(process.cwd(), "public/frontend/images"))
+);
 
 // Serve additional static assets
-app.use("/logo.png", express.static(path.join(process.cwd(), "public/frontend/images/logo.png")));
-app.use("/logo.svg", express.static(path.join(process.cwd(), "public/frontend/images/logo.svg")));
+app.use(
+  "/logo.png",
+  express.static(path.join(process.cwd(), "public/frontend/images/logo.png"))
+);
+app.use(
+  "/logo.svg",
+  express.static(path.join(process.cwd(), "public/frontend/images/logo.svg"))
+);
 
 // Public uploads directory - no authentication required
 app.use("/uploads", express.static(path.join(process.cwd(), "public/uploads")));
@@ -84,10 +102,6 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/socials", socialRoutes);
 app.use("/api/settings", settingsRoutes);
 
-
-
-
-
 // Serve frontend for all other routes (SPA fallback)
 app.get("*", (req: Request, res: Response) => {
   // Skip API routes
@@ -97,9 +111,9 @@ app.get("*", (req: Request, res: Response) => {
 
   // Try to serve the requested file first
   const filePath = path.join(process.cwd(), "public/frontend", req.path);
-  
+
   // Check if file exists
-  if (require('fs').existsSync(filePath)) {
+  if (require("fs").existsSync(filePath)) {
     return res.sendFile(filePath);
   }
 

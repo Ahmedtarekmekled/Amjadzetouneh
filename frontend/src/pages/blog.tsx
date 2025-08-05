@@ -73,12 +73,14 @@ export default function BlogPage() {
   const loadPosts = async () => {
     try {
       setIsLoading(true);
+      console.log("🔄 Loading posts from public endpoint...");
       // Use public endpoint for blog page
       const fetchedPosts = await postService.getPublicPosts();
+      console.log("📝 Fetched posts:", fetchedPosts);
       setPosts(fetchedPosts);
       setFilteredPosts(fetchedPosts);
     } catch (error) {
-      console.error("Error loading posts:", error);
+      console.error("❌ Error loading posts:", error);
       setError("Failed to load blog posts");
     } finally {
       setIsLoading(false);

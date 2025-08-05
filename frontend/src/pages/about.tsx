@@ -27,9 +27,12 @@ export default function About() {
 
   const loadAboutData = async () => {
     try {
+      console.log("🔄 Loading about data...");
       const data = await aboutService.getAbout();
+      console.log("👤 About data:", data);
       setAboutData(data);
     } catch (error) {
+      console.error("❌ Error loading about data:", error);
       setError("Failed to load about page");
     } finally {
       setIsLoading(false);

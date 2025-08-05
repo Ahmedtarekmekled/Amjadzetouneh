@@ -27,7 +27,7 @@ export const aboutController = {
         });
       }
 
-      res.json(about);
+      res.json(about.toObject());
     } catch (error) {
       console.error("Error fetching about:", error);
       res.status(500).json({ message: "Error fetching about data" });
@@ -55,7 +55,7 @@ export const aboutController = {
         });
       }
 
-      res.json(about);
+      res.json(about.toObject());
     } catch (error) {
       console.error("Error updating about:", error);
       res.status(500).json({ message: "Error updating about data" });
@@ -69,7 +69,7 @@ export const aboutController = {
         about.profileImage = undefined;
         await about.save();
       }
-      res.json(about);
+      res.json(about?.toObject() || null);
     } catch (error) {
       console.error("Error deleting profile image:", error);
       res.status(500).json({ message: "Error deleting profile image" });
@@ -83,7 +83,7 @@ export const aboutController = {
         about.cvFile = undefined;
         await about.save();
       }
-      res.json(about);
+      res.json(about?.toObject() || null);
     } catch (error) {
       console.error("Error deleting CV:", error);
       res.status(500).json({ message: "Error deleting CV" });

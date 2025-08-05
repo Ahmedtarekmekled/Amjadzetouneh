@@ -133,8 +133,8 @@ fi
 echo "📁 Creating uploads directory..."
 mkdir -p food-blog-backend/public/uploads
 
-# Create admin user
-echo "🔐 Setting up admin user..."
+# Create admin user and sample posts
+echo "🔐 Setting up admin user and sample posts..."
 cd food-blog-backend
 # Create admin user directly in the backend directory
 node -e "
@@ -198,6 +198,91 @@ const createAdmin = async () => {
     console.log('✅ Admin user created successfully');
     console.log('Email:', adminData.email);
     console.log('Password:', adminData.password);
+    
+    // Create sample posts
+    console.log('📝 Creating sample posts...');
+    const Post = mongoose.model('Post', new mongoose.Schema({
+      title: { en: String, ar: String },
+      excerpt: { en: String, ar: String },
+      content: {
+        en: {
+          title: String,
+          content: String,
+          metaTitle: String,
+          metaDescription: String,
+          keywords: [String]
+        },
+        ar: {
+          title: String,
+          content: String,
+          metaTitle: String,
+          metaDescription: String,
+          keywords: [String]
+        }
+      },
+      categories: [String],
+      tags: [String],
+      status: String,
+      prepTime: Number,
+      cookTime: Number,
+      difficulty: String,
+      servings: Number,
+      calories: Number,
+      slug: String,
+      author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      createdAt: { type: Date, default: Date.now }
+    }));
+
+    const existingPosts = await Post.countDocuments();
+    if (existingPosts === 0) {
+      const samplePosts = [
+        {
+          title: { en: 'Delicious Homemade Pizza', ar: 'بيتزا منزلية لذيذة' },
+          excerpt: { en: 'Learn how to make the perfect homemade pizza', ar: 'تعلم كيفية صنع البيتزا المثالية' },
+          content: {
+            en: { title: 'Delicious Homemade Pizza', content: 'This is a detailed recipe...', metaTitle: 'Pizza Recipe', metaDescription: 'Homemade pizza recipe', keywords: ['pizza', 'homemade'] },
+            ar: { title: 'بيتزا منزلية لذيذة', content: 'هذه وصفة مفصلة...', metaTitle: 'وصفة البيتزا', metaDescription: 'وصفة البيتزا المنزلية', keywords: ['بيتزا', 'منزلية'] }
+          },
+          categories: ['main-dishes'],
+          tags: ['pizza', 'italian'],
+          status: 'published',
+          prepTime: 30,
+          cookTime: 20,
+          difficulty: 'medium',
+          servings: 4,
+          calories: 300,
+          slug: 'delicious-homemade-pizza',
+          author: admin._id
+        },
+        {
+          title: { en: 'Fresh Garden Salad', ar: 'سلطة حديقة طازجة' },
+          excerpt: { en: 'A refreshing salad with fresh vegetables', ar: 'سلطة منعشة مع خضروات طازجة' },
+          content: {
+            en: { title: 'Fresh Garden Salad', content: 'This is a refreshing salad...', metaTitle: 'Salad Recipe', metaDescription: 'Fresh garden salad', keywords: ['salad', 'healthy'] },
+            ar: { title: 'سلطة حديقة طازجة', content: 'هذه سلطة منعشة...', metaTitle: 'وصفة السلطة', metaDescription: 'سلطة حديقة طازجة', keywords: ['سلطة', 'صحية'] }
+          },
+          categories: ['salads'],
+          tags: ['salad', 'healthy'],
+          status: 'published',
+          prepTime: 15,
+          cookTime: 0,
+          difficulty: 'easy',
+          servings: 2,
+          calories: 150,
+          slug: 'fresh-garden-salad',
+          author: admin._id
+        }
+      ];
+
+      for (const postData of samplePosts) {
+        await Post.create(postData);
+        console.log(\`✅ Created post: \${postData.title.en}\`);
+      }
+      console.log('🎉 Sample posts created successfully!');
+    } else {
+      console.log(\`📝 Found \${existingPosts} existing posts\`);
+    }
+    
     await mongoose.connection.close();
   } catch (error) {
     console.error('❌ Error creating admin:', error);

@@ -10,6 +10,7 @@ import multer from "multer";
 import jwt from "jsonwebtoken";
 import socialRoutes from "./routes/socialRoutes";
 import settingsRoutes from "./routes/settings";
+import tagRoutes from "./routes/tagRoutes";
 
 const app = express();
 
@@ -107,6 +108,7 @@ app.use("/api/about", aboutRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/socials", socialRoutes);
 app.use("/api/settings", settingsRoutes);
+app.use("/api/tags", tagRoutes);
 
 // Serve frontend for all other routes (SPA fallback)
 app.get("*", (req: Request, res: Response) => {
@@ -138,14 +140,16 @@ app.get("*", (req: Request, res: Response) => {
         return res.status(404).json({
           message: "Image not found",
           path: req.path,
-          availableImages: require("fs").existsSync(imagesDir) ? require("fs").readdirSync(imagesDir) : [],
+          availableImages: require("fs").existsSync(imagesDir)
+            ? require("fs").readdirSync(imagesDir)
+            : [],
         });
       }
     } catch (error: any) {
       console.log(`❌ Error serving image: ${error}`);
       return res.status(500).json({
         message: "Error serving image",
-        error: error.message
+        error: error.message,
       });
     }
   }

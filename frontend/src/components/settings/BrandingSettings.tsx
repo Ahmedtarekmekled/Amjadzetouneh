@@ -72,18 +72,42 @@ export default function BrandingSettings({
     hero: {
       backgroundImage: settings?.branding?.hero?.backgroundImage || "",
       en: {
-        title: settings?.branding?.hero?.en?.title || "",
-        subtitle: settings?.branding?.hero?.en?.subtitle || "",
-        ctaText: settings?.branding?.hero?.en?.ctaText || "",
+        title: settings?.branding?.hero?.en?.title || "Culinary Adventures Await",
+        subtitle: settings?.branding?.hero?.en?.subtitle || "Discover mouthwatering recipes, cooking tips, and culinary stories that will inspire your next kitchen masterpiece",
+        ctaText: settings?.branding?.hero?.en?.ctaText || "Explore Recipes",
       },
       ar: {
-        title: settings?.branding?.hero?.ar?.title || "",
-        subtitle: settings?.branding?.hero?.ar?.subtitle || "",
-        ctaText: settings?.branding?.hero?.ar?.ctaText || "",
+        title: settings?.branding?.hero?.ar?.title || "مغامرات الطهي تنتظرك",
+        subtitle: settings?.branding?.hero?.ar?.subtitle || "اكتشف وصفات شهية ونصائح طهي وقصص طهي ستلهمك لتحضير تحفة طهي جديدة",
+        ctaText: settings?.branding?.hero?.ar?.ctaText || "استكشف الوصفات",
       },
     },
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [uploadProgress, setUploadProgress] = useState<{ [key: string]: number }>({});
+
+  // Update form data when settings change
+  useEffect(() => {
+    if (settings) {
+      setFormData({
+        logo: settings?.branding?.logo || "",
+        favicon: settings?.branding?.favicon || "",
+        hero: {
+          backgroundImage: settings?.branding?.hero?.backgroundImage || "",
+          en: {
+            title: settings?.branding?.hero?.en?.title || "Culinary Adventures Await",
+            subtitle: settings?.branding?.hero?.en?.subtitle || "Discover mouthwatering recipes, cooking tips, and culinary stories that will inspire your next kitchen masterpiece",
+            ctaText: settings?.branding?.hero?.en?.ctaText || "Explore Recipes",
+          },
+          ar: {
+            title: settings?.branding?.hero?.ar?.title || "مغامرات الطهي تنتظرك",
+            subtitle: settings?.branding?.hero?.ar?.subtitle || "اكتشف وصفات شهية ونصائح طهي وقصص طهي ستلهمك لتحضير تحفة طهي جديدة",
+            ctaText: settings?.branding?.hero?.ar?.ctaText || "استكشف الوصفات",
+          },
+        },
+      });
+    }
+  }, [settings]);
 
   const defaultImages = {
     logo: "/images/default-logo.png",
@@ -130,6 +154,9 @@ export default function BrandingSettings({
     }
 
     try {
+      setUploadProgress((prev) => ({ ...prev, [type]: 0 }));
+      setErrors((prev) => ({ ...prev, [type]: "" }));
+
       const formData = new FormData();
       formData.append("file", file);
       formData.append("type", type);
@@ -138,6 +165,14 @@ export default function BrandingSettings({
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        onUploadProgress: (progressEvent) => {
+          if (progressEvent.total) {
+            const progress = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            setUploadProgress((prev) => ({ ...prev, [type]: progress }));
+          }
         },
       });
 
@@ -158,12 +193,29 @@ export default function BrandingSettings({
           [type]: filePath,
         };
       });
-    } catch (error) {
+
+      setUploadProgress((prev) => ({ ...prev, [type]: 100 }));
+      
+      // Clear progress after a delay
+      setTimeout(() => {
+        setUploadProgress((prev) => {
+          const newProgress = { ...prev };
+          delete newProgress[type];
+          return newProgress;
+        });
+      }, 2000);
+
+    } catch (error: any) {
       console.error("Error uploading file:", error);
       setErrors((prev) => ({
         ...prev,
-        [type]: "Failed to upload file",
+        [type]: error.response?.data?.message || "Failed to upload file. Please try again.",
       }));
+      setUploadProgress((prev) => {
+        const newProgress = { ...prev };
+        delete newProgress[type];
+        return newProgress;
+      });
     }
   };
 
@@ -246,6 +298,19 @@ export default function BrandingSettings({
                 }
                 className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
               />
+              {uploadProgress.logo !== undefined && (
+                <div className="mt-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-indigo-600 h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${uploadProgress.logo}%` }}
+                    ></div>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Uploading... {uploadProgress.logo}%
+                  </p>
+                </div>
+              )}
               {errors.logo && (
                 <p className="mt-1 text-sm text-red-600">{errors.logo}</p>
               )}
@@ -281,6 +346,19 @@ export default function BrandingSettings({
                 }
                 className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
               />
+              {uploadProgress.favicon !== undefined && (
+                <div className="mt-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-indigo-600 h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${uploadProgress.favicon}%` }}
+                    ></div>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Uploading... {uploadProgress.favicon}%
+                  </p>
+                </div>
+              )}
               {errors.favicon && (
                 <p className="mt-1 text-sm text-red-600">{errors.favicon}</p>
               )}
@@ -318,6 +396,19 @@ export default function BrandingSettings({
                 }
                 className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
               />
+              {uploadProgress.heroBackground !== undefined && (
+                <div className="mt-2">
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-indigo-600 h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${uploadProgress.heroBackground}%` }}
+                    ></div>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Uploading... {uploadProgress.heroBackground}%
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -438,6 +529,33 @@ export default function BrandingSettings({
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Preview Section */}
+      <section className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Preview</h3>
+        <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="text-center">
+            {formData.logo && (
+              <div className="mb-4">
+                <img
+                  src={formData.logo}
+                  alt="Logo Preview"
+                  className="h-12 mx-auto"
+                />
+              </div>
+            )}
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              {formData.hero.en.title}
+            </h2>
+            <p className="text-gray-600 mb-4 max-w-2xl mx-auto">
+              {formData.hero.en.subtitle}
+            </p>
+            <button className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700">
+              {formData.hero.en.ctaText}
+            </button>
           </div>
         </div>
       </section>

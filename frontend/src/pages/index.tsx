@@ -100,7 +100,7 @@ export default function LandingPage() {
         setIsLoading(true);
         const [featuredPostsData, settingsData] = await Promise.all([
           postService.getFeaturedPosts(),
-          settingsService.getAllSettings()
+          settingsService.getAllSettings(),
         ]);
         setFeaturedPosts(featuredPostsData);
         setSettings(settingsData);
@@ -125,27 +125,47 @@ export default function LandingPage() {
   return (
     <>
       <Head>
-        <title>{settings.seo?.metaTitle || defaultSettings.seo.metaTitle}</title>
+        <title>
+          {settings.seo?.metaTitle || defaultSettings.seo.metaTitle}
+        </title>
         <meta
           name="description"
-          content={settings.seo?.metaDescription || defaultSettings.seo.metaDescription}
+          content={
+            settings.seo?.metaDescription || defaultSettings.seo.metaDescription
+          }
         />
         <meta
           name="keywords"
           content="food blog, recipes, cooking, culinary, chef, kitchen, cooking tips"
         />
-        <meta property="og:title" content={settings.seo?.metaTitle || defaultSettings.seo.metaTitle} />
+        <meta
+          property="og:title"
+          content={settings.seo?.metaTitle || defaultSettings.seo.metaTitle}
+        />
         <meta
           property="og:description"
-          content={settings.seo?.metaDescription || defaultSettings.seo.metaDescription}
+          content={
+            settings.seo?.metaDescription || defaultSettings.seo.metaDescription
+          }
         />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content={settings.branding?.hero?.backgroundImage || defaultSettings.heroImage} />
+        <meta
+          property="og:image"
+          content={
+            settings.branding?.hero?.backgroundImage ||
+            defaultSettings.heroImage
+          }
+        />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={settings.seo?.metaTitle || defaultSettings.seo.metaTitle} />
+        <meta
+          name="twitter:title"
+          content={settings.seo?.metaTitle || defaultSettings.seo.metaTitle}
+        />
         <meta
           name="twitter:description"
-          content={settings.seo?.metaDescription || defaultSettings.seo.metaDescription}
+          content={
+            settings.seo?.metaDescription || defaultSettings.seo.metaDescription
+          }
         />
         <script
           type="application/ld+json"
@@ -154,11 +174,15 @@ export default function LandingPage() {
               "@context": "https://schema.org",
               "@type": "Website",
               name: settings.siteTitle || defaultSettings.siteTitle,
-              description: settings.siteDescription || defaultSettings.siteDescription,
+              description:
+                settings.siteDescription || defaultSettings.siteDescription,
               url: process.env.NEXT_PUBLIC_SITE_URL,
               publisher: {
                 "@type": "Person",
-                name: settings.profileData?.name || defaultSettings.profileData?.name || "Chef Sarah",
+                name:
+                  settings.profileData?.name ||
+                  defaultSettings.profileData?.name ||
+                  "Amjad Zetouneh",
               },
             }),
           }}
@@ -168,10 +192,13 @@ export default function LandingPage() {
       <main className={`min-h-screen ${theme === "dark" ? "dark" : ""}`}>
         {/* Hero Section */}
         <section className="relative w-full">
-                  <HeroSection
-          content={settings.branding?.hero || defaultSettings.branding?.hero}
-          backgroundImage={settings.branding?.hero?.backgroundImage || defaultSettings.branding?.hero?.backgroundImage}
-        />
+          <HeroSection
+            content={settings.branding?.hero || defaultSettings.branding?.hero}
+            backgroundImage={
+              settings.branding?.hero?.backgroundImage ||
+              defaultSettings.branding?.hero?.backgroundImage
+            }
+          />
         </section>
 
         {/* Curved Divider: Hero → Featured Recipes */}
@@ -195,7 +222,9 @@ export default function LandingPage() {
 
         {/* About Section */}
         <section className="w-full">
-          <AboutSection profileData={settings.profileData || defaultSettings.profileData} />
+          <AboutSection
+            profileData={settings.profileData || defaultSettings.profileData}
+          />
         </section>
 
         {/* Curved Divider: About → Newsletter */}
@@ -224,7 +253,9 @@ export default function LandingPage() {
                 behind-the-scenes content, and exclusive recipes
               </p>
             </div>
-            <SocialLinks links={settings.socialLinks || defaultSettings.socialLinks} />
+            <SocialLinks
+              links={settings.socialLinks || defaultSettings.socialLinks}
+            />
           </div>
         </section>
 

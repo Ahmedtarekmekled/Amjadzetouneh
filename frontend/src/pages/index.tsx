@@ -195,6 +195,7 @@ export default function LandingPage() {
         logoUrl: (settings.branding as any)?.logo,
         backgroundImageUrl: settings.branding?.hero?.backgroundImage,
         settings: settings,
+        branding: settings.branding,
       })}
       <MainLayout
         logoUrl={(settings.branding as any)?.logo}

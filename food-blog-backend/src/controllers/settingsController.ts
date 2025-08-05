@@ -70,6 +70,15 @@ export const settingsController = {
       // If settings exist but we want to use about data for profile
       const settingsWithAbout = {
         ...settings,
+        branding: {
+          logo: settings.branding?.logo || DEFAULT_SETTINGS.branding.logo,
+          favicon: settings.branding?.favicon || DEFAULT_SETTINGS.branding.favicon,
+          hero: {
+            backgroundImage: settings.branding?.hero?.backgroundImage || DEFAULT_SETTINGS.branding.hero.backgroundImage,
+            en: settings.branding?.hero?.en || DEFAULT_SETTINGS.branding.hero.en,
+            ar: settings.branding?.hero?.ar || DEFAULT_SETTINGS.branding.hero.ar,
+          },
+        },
         profileData: {
           ...settings.profileData,
           photo: about?.profileImage || settings.profileData.photo,

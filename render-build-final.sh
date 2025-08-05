@@ -62,6 +62,16 @@ if [ -d "frontend/out" ]; then
         cp -f frontend/public/manifest.json food-blog-backend/public/frontend/
         cp -rf frontend/public/images food-blog-backend/public/frontend/
         
+        # Additional safety copy - ensure images directory exists
+        echo "📁 Ensuring images directory exists..."
+        mkdir -p food-blog-backend/public/frontend/images
+        if [ -d "frontend/public/images" ]; then
+            cp -rf frontend/public/images/* food-blog-backend/public/frontend/images/
+            echo "✅ Images copied to backend"
+        else
+            echo "❌ frontend/public/images not found"
+        fi
+        
         # Ensure all default images exist
         echo "📁 Creating default images..."
         if [ ! -f "food-blog-backend/public/frontend/images/default-hero.jpg" ]; then

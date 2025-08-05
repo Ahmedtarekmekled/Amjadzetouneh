@@ -7,7 +7,11 @@ import { aboutService, AboutData } from "@/services/aboutService";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import PageLoader from "@/components/ui/PageLoader";
 import Toast from "@/components/ui/Toast";
-import { UserIcon, DocumentTextIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import {
+  UserIcon,
+  DocumentTextIcon,
+  SparklesIcon,
+} from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 
 export default function AboutPage() {
@@ -70,7 +74,10 @@ export default function AboutPage() {
     return (
       <ProtectedRoute>
         <DashboardLayout>
-          <PageLoader text="Loading profile information..." showBackground={false} />
+          <PageLoader
+            text="Loading profile information..."
+            showBackground={false}
+          />
         </DashboardLayout>
       </ProtectedRoute>
     );
@@ -122,7 +129,9 @@ export default function AboutPage() {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-amber-600">Profile Status</p>
+                  <p className="text-sm font-medium text-amber-600">
+                    Profile Status
+                  </p>
                   <p className="text-2xl font-bold text-gray-900">
                     {aboutData?.profileImage ? "Complete" : "Incomplete"}
                   </p>
@@ -141,7 +150,9 @@ export default function AboutPage() {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-amber-600">CV Status</p>
+                  <p className="text-sm font-medium text-amber-600">
+                    CV Status
+                  </p>
                   <p className="text-2xl font-bold text-gray-900">
                     {aboutData?.cvFile ? "Uploaded" : "Not Uploaded"}
                   </p>
@@ -160,9 +171,13 @@ export default function AboutPage() {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-amber-600">Content Status</p>
+                  <p className="text-sm font-medium text-amber-600">
+                    Content Status
+                  </p>
                   <p className="text-2xl font-bold text-gray-900">
-                    {aboutData?.content?.en?.description ? "Complete" : "Incomplete"}
+                    {aboutData?.content?.en?.description
+                      ? "Complete"
+                      : "Incomplete"}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-500 rounded-xl flex items-center justify-center">
@@ -184,7 +199,8 @@ export default function AboutPage() {
                 Profile Information
               </h2>
               <p className="text-gray-600">
-                Update your personal information, upload your photo, and manage your CV
+                Update your personal information, upload your photo, and manage
+                your CV
               </p>
             </div>
 

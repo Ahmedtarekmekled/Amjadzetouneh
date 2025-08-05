@@ -23,8 +23,13 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
-  // Ensure static assets are properly handled
-  assetPrefix: process.env.NODE_ENV === 'production' ? '.' : '',
+  // Fix asset paths for static export
+  assetPrefix: "",
+  basePath: "",
+  // Disable image optimization for static export
+  experimental: {
+    esmExternals: false,
+  },
 };
 
 module.exports = nextConfig;

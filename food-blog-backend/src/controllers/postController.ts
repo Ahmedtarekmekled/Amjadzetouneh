@@ -74,7 +74,7 @@ export const postController = {
   // Admin method to get all posts including drafts
   getAllPostsAdmin: (async (req: AuthRequest, res: Response) => {
     try {
-      const posts = await Post.find()
+      const posts = await Post.find().lean()
         .sort({ createdAt: -1 })
         .populate("author", "username")
         .lean(); // Convert to plain objects

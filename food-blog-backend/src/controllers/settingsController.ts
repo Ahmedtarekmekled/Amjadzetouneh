@@ -85,7 +85,7 @@ export const settingsController = {
 
   importSettings: async (req: Request, res: Response) => {
     try {
-      let settings = await Settings.findOne();
+      let settings = await Settings.findOne().lean();
       
       if (settings) {
         Object.assign(settings, req.body);

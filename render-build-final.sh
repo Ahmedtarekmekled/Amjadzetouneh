@@ -29,8 +29,25 @@ mkdir -p food-blog-backend/public/frontend
 # Copy frontend build to backend public
 echo "📁 Copying frontend build to backend..."
 if [ -d "frontend/out" ]; then
+    # Ensure the target directory exists
+    mkdir -p food-blog-backend/public/frontend
+    
+    # Copy all files from frontend/out to backend public/frontend
     cp -r frontend/out/* food-blog-backend/public/frontend/
     echo "✅ Frontend files copied successfully!"
+    
+    # Ensure critical files are in the right place
+    echo "📁 Ensuring critical files are accessible..."
+    if [ -f "frontend/out/index.html" ]; then
+        cp frontend/out/index.html food-blog-backend/public/frontend/
+        echo "✅ index.html copied"
+    fi
+    
+    # Copy static assets to root level for better accessibility
+    if [ -d "frontend/out/_next" ]; then
+        cp -r frontend/out/_next food-blog-backend/public/
+        echo "✅ _next directory copied to root"
+    fi
     
     # Copy static assets from frontend/public to frontend build
     echo "📁 Copying static assets..."

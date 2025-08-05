@@ -31,6 +31,9 @@ app.use(express.json());
 // Serve frontend static files (for combined deployment)
 app.use(express.static(path.join(process.cwd(), "public/frontend")));
 
+// Serve _next directory for Next.js static assets
+app.use("/_next", express.static(path.join(process.cwd(), "public/_next")));
+
 // Serve images directory specifically
 app.use(
   "/images",

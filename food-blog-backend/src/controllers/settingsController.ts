@@ -14,6 +14,23 @@ const DEFAULT_SETTINGS = {
     experiences: [],
   },
   socialLinks: [],
+  branding: {
+    logo: "/images/logo.png",
+    favicon: "/images/default-favicon.png",
+    hero: {
+      backgroundImage: "/images/default-hero.jpg",
+      en: {
+        title: "Culinary Adventures Await",
+        subtitle: "Discover mouthwatering recipes, cooking tips, and culinary stories that will inspire your next kitchen masterpiece",
+        ctaText: "Explore Recipes",
+      },
+      ar: {
+        title: "مغامرات الطهي تنتظرك",
+        subtitle: "اكتشف وصفات شهية ونصائح طهي وقصص طهي ستلهمك لتحضير تحفة طهي جديدة",
+        ctaText: "استكشف الوصفات",
+      },
+    },
+  },
   seo: {
     metaTitle: "Food Blog - Home",
     metaDescription: "Welcome to our Food Blog",

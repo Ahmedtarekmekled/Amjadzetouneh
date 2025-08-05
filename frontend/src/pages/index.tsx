@@ -101,9 +101,10 @@ export default function LandingPage() {
         setIsLoading(true);
         const [featuredPostsData, settingsData] = await Promise.all([
           postService.getFeaturedPosts(),
-          settingsService.getAllSettings(),
+          settingsService.getAllSettings(), // This is the public endpoint
         ]);
         setFeaturedPosts(featuredPostsData);
+        console.log("🎯 Landing page loaded settings:", settingsData);
         setSettings(settingsData);
       } catch (error) {
         // Handle error silently
@@ -190,93 +191,110 @@ export default function LandingPage() {
         />
       </Head>
 
-      <MainLayout 
+      {console.log("🎯 MainLayout props:", {
+        logoUrl: (settings.branding as any)?.logo,
+        backgroundImageUrl: settings.branding?.hero?.backgroundImage,
+        settings: settings
+      })}
+      <MainLayout
         logoUrl={(settings.branding as any)?.logo}
         backgroundImageUrl={settings.branding?.hero?.backgroundImage}
       >
         <main className={`min-h-screen ${theme === "dark" ? "dark" : ""}`}>
-        {/* Hero Section */}
-        <section className="relative w-full">
-                  <HeroSection
-          content={{
-            en: {
-              title: (settings.branding?.hero?.en as any)?.title || "Culinary Adventures Await",
-              description: (settings.branding?.hero?.en as any)?.subtitle || "Discover mouthwatering recipes, cooking tips, and culinary stories that will inspire your next kitchen masterpiece",
-              buttonText: (settings.branding?.hero?.en as any)?.ctaText || "Explore Recipes",
-            },
-            ar: {
-              title: (settings.branding?.hero?.ar as any)?.title || "مغامرات الطهي تنتظرك",
-              description: (settings.branding?.hero?.ar as any)?.subtitle || "اكتشف وصفات شهية ونصائح طهي وقصص طهي ستلهمك لتحضير تحفة طهي جديدة",
-              buttonText: (settings.branding?.hero?.ar as any)?.ctaText || "استكشف الوصفات",
-            },
-          }}
-          backgroundImage={
-            settings.branding?.hero?.backgroundImage ||
-            defaultSettings.branding?.hero?.backgroundImage
-          }
-        />
-        </section>
-
-        {/* Curved Divider: Hero → Featured Recipes */}
-        <CurvedDivider
-          type="wave"
-          direction="down"
-          color={theme === "dark" ? "#1f2937" : "#fef3c7"}
-        />
-
-        {/* Featured Recipes */}
-        <section className="w-full">
-          <FeaturedRecipes recipes={featuredPosts} />
-        </section>
-
-        {/* Curved Divider: Featured Recipes → About */}
-        <CurvedDivider
-          type="curve"
-          direction="up"
-          color={theme === "dark" ? "#1f2937" : "#ffffff"}
-        />
-
-        {/* About Section */}
-        <section className="w-full">
-          <AboutSection
-            profileData={settings.profileData || defaultSettings.profileData}
-          />
-        </section>
-
-        {/* Curved Divider: About → Newsletter */}
-        <CurvedDivider
-          type="angled"
-          direction="down"
-          color={theme === "dark" ? "#374151" : "#fef3c7"}
-        />
-
-        {/* Newsletter Section */}
-        <section className="w-full bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-gray-800 dark:to-gray-900">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <NewsletterForm />
-          </div>
-        </section>
-
-        {/* Social Media Section */}
-        <section className="w-full bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-800 dark:to-gray-900">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                Follow Our Culinary Journey
-              </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                Join our community of food lovers and get daily inspiration,
-                behind-the-scenes content, and exclusive recipes
-              </p>
-            </div>
-            <SocialLinks
-              links={settings.socialLinks || defaultSettings.socialLinks}
+          {/* Hero Section */}
+          <section className="relative w-full">
+            <HeroSection
+              content={{
+                en: {
+                  title:
+                    (settings.branding?.hero?.en as any)?.title ||
+                    "Culinary Adventures Await",
+                  description:
+                    (settings.branding?.hero?.en as any)?.subtitle ||
+                    "Discover mouthwatering recipes, cooking tips, and culinary stories that will inspire your next kitchen masterpiece",
+                  buttonText:
+                    (settings.branding?.hero?.en as any)?.ctaText ||
+                    "Explore Recipes",
+                },
+                ar: {
+                  title:
+                    (settings.branding?.hero?.ar as any)?.title ||
+                    "مغامرات الطهي تنتظرك",
+                  description:
+                    (settings.branding?.hero?.ar as any)?.subtitle ||
+                    "اكتشف وصفات شهية ونصائح طهي وقصص طهي ستلهمك لتحضير تحفة طهي جديدة",
+                  buttonText:
+                    (settings.branding?.hero?.ar as any)?.ctaText ||
+                    "استكشف الوصفات",
+                },
+              }}
+              backgroundImage={
+                settings.branding?.hero?.backgroundImage ||
+                defaultSettings.branding?.hero?.backgroundImage
+              }
             />
-          </div>
-        </section>
+          </section>
 
-        {/* Footer */}
-        <Footer />
+          {/* Curved Divider: Hero → Featured Recipes */}
+          <CurvedDivider
+            type="wave"
+            direction="down"
+            color={theme === "dark" ? "#1f2937" : "#fef3c7"}
+          />
+
+          {/* Featured Recipes */}
+          <section className="w-full">
+            <FeaturedRecipes recipes={featuredPosts} />
+          </section>
+
+          {/* Curved Divider: Featured Recipes → About */}
+          <CurvedDivider
+            type="curve"
+            direction="up"
+            color={theme === "dark" ? "#1f2937" : "#ffffff"}
+          />
+
+          {/* About Section */}
+          <section className="w-full">
+            <AboutSection
+              profileData={settings.profileData || defaultSettings.profileData}
+            />
+          </section>
+
+          {/* Curved Divider: About → Newsletter */}
+          <CurvedDivider
+            type="angled"
+            direction="down"
+            color={theme === "dark" ? "#374151" : "#fef3c7"}
+          />
+
+          {/* Newsletter Section */}
+          <section className="w-full bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-gray-800 dark:to-gray-900">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+              <NewsletterForm />
+            </div>
+          </section>
+
+          {/* Social Media Section */}
+          <section className="w-full bg-gradient-to-br from-amber-50 to-orange-50 dark:from-gray-800 dark:to-gray-900">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+              <div className="text-center mb-12">
+                <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                  Follow Our Culinary Journey
+                </h2>
+                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                  Join our community of food lovers and get daily inspiration,
+                  behind-the-scenes content, and exclusive recipes
+                </p>
+              </div>
+              <SocialLinks
+                links={settings.socialLinks || defaultSettings.socialLinks}
+              />
+            </div>
+          </section>
+
+          {/* Footer */}
+          <Footer />
         </main>
       </MainLayout>
     </>

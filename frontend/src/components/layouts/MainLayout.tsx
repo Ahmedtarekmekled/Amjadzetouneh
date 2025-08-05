@@ -8,7 +8,11 @@ interface MainLayoutProps {
   backgroundImageUrl?: string;
 }
 
-export default function MainLayout({ children, logoUrl, backgroundImageUrl }: MainLayoutProps) {
+export default function MainLayout({
+  children,
+  logoUrl,
+  backgroundImageUrl,
+}: MainLayoutProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 

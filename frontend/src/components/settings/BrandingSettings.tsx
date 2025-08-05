@@ -72,19 +72,26 @@ export default function BrandingSettings({
     hero: {
       backgroundImage: settings?.branding?.hero?.backgroundImage || "",
       en: {
-        title: settings?.branding?.hero?.en?.title || "Culinary Adventures Await",
-        subtitle: settings?.branding?.hero?.en?.subtitle || "Discover mouthwatering recipes, cooking tips, and culinary stories that will inspire your next kitchen masterpiece",
+        title:
+          settings?.branding?.hero?.en?.title || "Culinary Adventures Await",
+        subtitle:
+          settings?.branding?.hero?.en?.subtitle ||
+          "Discover mouthwatering recipes, cooking tips, and culinary stories that will inspire your next kitchen masterpiece",
         ctaText: settings?.branding?.hero?.en?.ctaText || "Explore Recipes",
       },
       ar: {
         title: settings?.branding?.hero?.ar?.title || "مغامرات الطهي تنتظرك",
-        subtitle: settings?.branding?.hero?.ar?.subtitle || "اكتشف وصفات شهية ونصائح طهي وقصص طهي ستلهمك لتحضير تحفة طهي جديدة",
+        subtitle:
+          settings?.branding?.hero?.ar?.subtitle ||
+          "اكتشف وصفات شهية ونصائح طهي وقصص طهي ستلهمك لتحضير تحفة طهي جديدة",
         ctaText: settings?.branding?.hero?.ar?.ctaText || "استكشف الوصفات",
       },
     },
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [uploadProgress, setUploadProgress] = useState<{ [key: string]: number }>({});
+  const [uploadProgress, setUploadProgress] = useState<{
+    [key: string]: number;
+  }>({});
 
   // Update form data when settings change
   useEffect(() => {
@@ -95,13 +102,20 @@ export default function BrandingSettings({
         hero: {
           backgroundImage: settings?.branding?.hero?.backgroundImage || "",
           en: {
-            title: settings?.branding?.hero?.en?.title || "Culinary Adventures Await",
-            subtitle: settings?.branding?.hero?.en?.subtitle || "Discover mouthwatering recipes, cooking tips, and culinary stories that will inspire your next kitchen masterpiece",
+            title:
+              settings?.branding?.hero?.en?.title ||
+              "Culinary Adventures Await",
+            subtitle:
+              settings?.branding?.hero?.en?.subtitle ||
+              "Discover mouthwatering recipes, cooking tips, and culinary stories that will inspire your next kitchen masterpiece",
             ctaText: settings?.branding?.hero?.en?.ctaText || "Explore Recipes",
           },
           ar: {
-            title: settings?.branding?.hero?.ar?.title || "مغامرات الطهي تنتظرك",
-            subtitle: settings?.branding?.hero?.ar?.subtitle || "اكتشف وصفات شهية ونصائح طهي وقصص طهي ستلهمك لتحضير تحفة طهي جديدة",
+            title:
+              settings?.branding?.hero?.ar?.title || "مغامرات الطهي تنتظرك",
+            subtitle:
+              settings?.branding?.hero?.ar?.subtitle ||
+              "اكتشف وصفات شهية ونصائح طهي وقصص طهي ستلهمك لتحضير تحفة طهي جديدة",
             ctaText: settings?.branding?.hero?.ar?.ctaText || "استكشف الوصفات",
           },
         },
@@ -195,7 +209,7 @@ export default function BrandingSettings({
       });
 
       setUploadProgress((prev) => ({ ...prev, [type]: 100 }));
-      
+
       // Clear progress after a delay
       setTimeout(() => {
         setUploadProgress((prev) => {
@@ -204,12 +218,13 @@ export default function BrandingSettings({
           return newProgress;
         });
       }, 2000);
-
     } catch (error: any) {
       console.error("Error uploading file:", error);
       setErrors((prev) => ({
         ...prev,
-        [type]: error.response?.data?.message || "Failed to upload file. Please try again.",
+        [type]:
+          error.response?.data?.message ||
+          "Failed to upload file. Please try again.",
       }));
       setUploadProgress((prev) => {
         const newProgress = { ...prev };
@@ -264,9 +279,14 @@ export default function BrandingSettings({
   };
 
   const handleSave = () => {
-    if (Object.keys(errors).length === 0) {
-      onSave({ branding: formData });
-    }
+    // Clear any old errors before saving
+    setErrors({});
+    
+    // Ensure formData is a plain object to prevent React Error #130
+    const plainFormData = JSON.parse(JSON.stringify(formData));
+    console.log("Saving branding settings:", plainFormData);
+    
+    onSave({ branding: plainFormData });
   };
 
   return (
@@ -565,7 +585,7 @@ export default function BrandingSettings({
         <button
           type="button"
           onClick={handleSave}
-          disabled={isSaving || Object.keys(errors).length > 0}
+          disabled={isSaving}
           className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
         >
           {isSaving ? "Saving..." : "Save Branding Settings"}

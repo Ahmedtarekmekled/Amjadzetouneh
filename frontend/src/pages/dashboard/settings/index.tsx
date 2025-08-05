@@ -74,7 +74,7 @@ export default function SettingsPage() {
     try {
       setLoading(true);
       setError(null);
-      const data = await settingsService.getAllSettings();
+      const data = await settingsService.getSettings();
       setSettings(data);
     } catch (error) {
       console.error("Error loading settings:", error);
@@ -87,10 +87,13 @@ export default function SettingsPage() {
   const handleSave = async (newSettings: Partial<Settings>) => {
     setIsSaving(true);
     try {
+      console.log("Saving settings:", newSettings);
       const updatedSettings = await settingsService.updateSettings(newSettings);
+      console.log("Settings saved successfully:", updatedSettings);
       setSettings(updatedSettings);
       showToast("success", "Settings saved successfully");
     } catch (error) {
+      console.error("Error saving settings:", error);
       showToast("error", "Failed to save settings");
     } finally {
       setIsSaving(false);

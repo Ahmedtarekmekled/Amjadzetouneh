@@ -53,8 +53,8 @@ const educationSchema = new Schema({
 });
 
 const contentLanguageSchema = new Schema({
-  description: { type: String, required: true },
-  experience: { type: String, required: true },
+  description: { type: String, default: "" },
+  experience: { type: String, default: "" },
   skills: [{ type: String }],
   education: [educationSchema],
 });

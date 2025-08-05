@@ -37,6 +37,22 @@ if [ -d "frontend/out" ]; then
     if [ -d "frontend/public" ]; then
         cp -r frontend/public/* food-blog-backend/public/frontend/
         echo "✅ Static assets copied from frontend/public"
+        
+        # Force copy specific files to ensure they exist
+        if [ -f "frontend/public/favicon.ico" ]; then
+            cp frontend/public/favicon.ico food-blog-backend/public/frontend/
+            echo "✅ favicon.ico copied"
+        fi
+        
+        if [ -f "frontend/public/manifest.json" ]; then
+            cp frontend/public/manifest.json food-blog-backend/public/frontend/
+            echo "✅ manifest.json copied"
+        fi
+        
+        if [ -d "frontend/public/images" ]; then
+            cp -r frontend/public/images food-blog-backend/public/frontend/
+            echo "✅ images directory copied"
+        fi
     fi
     
     # Verify the index.html file exists

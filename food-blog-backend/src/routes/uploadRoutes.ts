@@ -58,6 +58,42 @@ router.post("/", upload.single("file"), (req: Request, res: Response) => {
   }
 });
 
+// Image upload endpoint
+router.post("/image", upload.single("file"), (req: Request, res: Response) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    const fileUrl = `/uploads/${req.file.filename}`;
+    res.json({
+      message: "Image uploaded successfully",
+      url: fileUrl,
+      filename: req.file.filename,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error uploading image" });
+  }
+});
+
+// CV upload endpoint
+router.post("/cv", upload.single("file"), (req: Request, res: Response) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    const fileUrl = `/uploads/${req.file.filename}`;
+    res.json({
+      message: "CV uploaded successfully",
+      url: fileUrl,
+      filename: req.file.filename,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error uploading CV" });
+  }
+});
+
 // Delete endpoint
 router.delete("/:type", async (req: Request, res: Response) => {
   try {

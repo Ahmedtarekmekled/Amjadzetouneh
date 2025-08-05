@@ -17,7 +17,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
         <div
           className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
           style={{
-            backgroundImage: imageLoaded ? `url(${FULL_IMAGE_URLS.HERO_BG})` : "none",
+            backgroundImage: imageLoaded
+              ? `url(${FULL_IMAGE_URLS.HERO_BG})`
+              : "none",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundAttachment: "fixed",
@@ -34,13 +36,15 @@ export default function MainLayout({ children }: MainLayoutProps) {
               setImageLoaded(true);
             }}
             onError={() => {
-              console.log("🖼️ Background image failed to load, using gradient fallback");
+              console.log(
+                "🖼️ Background image failed to load, using gradient fallback"
+              );
               setImageError(true);
             }}
           />
         </div>
       )}
-      
+
       {/* Content overlay */}
       <div className="min-h-screen bg-black/20 backdrop-blur-sm relative z-10">
         <MainNavbar />

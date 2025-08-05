@@ -41,7 +41,10 @@ export const settingsController = {
             cv: about?.cvFile || DEFAULT_SETTINGS.profileData.cv,
           },
         };
-        console.log("🔍 Returning default settings:", JSON.stringify(defaultWithAbout, null, 2));
+        console.log(
+          "🔍 Returning default settings:",
+          JSON.stringify(defaultWithAbout, null, 2)
+        );
         return res.json(defaultWithAbout);
       }
 
@@ -55,7 +58,10 @@ export const settingsController = {
         },
       };
 
-      console.log("🔍 Returning settings with about:", JSON.stringify(settingsWithAbout, null, 2));
+      console.log(
+        "🔍 Returning settings with about:",
+        JSON.stringify(settingsWithAbout, null, 2)
+      );
       res.json(settingsWithAbout);
     } catch (error) {
       console.error("Error fetching settings:", error);

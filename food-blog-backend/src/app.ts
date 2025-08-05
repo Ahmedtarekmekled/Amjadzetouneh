@@ -120,23 +120,32 @@ app.get("*", (req: Request, res: Response) => {
     const imagePath = path.join(process.cwd(), "public/frontend", req.path);
     console.log(`🔍 Looking for image: ${imagePath}`);
 
-    if (require("fs").existsSync(imagePath)) {
-      console.log(`✅ Image found: ${req.path}`);
-      return res.sendFile(imagePath);
-    } else {
-      console.log(`❌ Image not found: ${req.path}`);
-      console.log(
-        `📁 Available images:`,
-        require("fs").readdirSync(
-          path.join(process.cwd(), "public/frontend/images")
-        )
-      );
-      return res.status(404).json({
-        message: "Image not found",
-        path: req.path,
-        availableImages: require("fs").readdirSync(
-          path.join(process.cwd(), "public/frontend/images")
-        ),
+    try {
+      if (require("fs").existsSync(imagePath)) {
+        console.log(`✅ Image found: ${req.path}`);
+        return res.sendFile(imagePath);
+      } else {
+        console.log(`❌ Image not found: ${req.path}`);
+        const imagesDir = path.join(process.cwd(), "public/frontend/images");
+        if (require("fs").existsSync(imagesDir)) {
+          console.log(
+            `📁 Available images:`,
+            require("fs").readdirSync(imagesDir)
+          );
+        } else {
+          console.log(`📁 Images directory not found: ${imagesDir}`);
+        }
+        return res.status(404).json({
+          message: "Image not found",
+          path: req.path,
+          availableImages: require("fs").existsSync(imagesDir) ? require("fs").readdirSync(imagesDir) : [],
+        });
+      }
+    } catch (error: any) {
+      console.log(`❌ Error serving image: ${error}`);
+      return res.status(500).json({
+        message: "Error serving image",
+        error: error.message
       });
     }
   }

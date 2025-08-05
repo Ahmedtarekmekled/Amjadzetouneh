@@ -18,11 +18,15 @@ export const IMAGE_URLS = {
   // Background images
   BACKGROUND: {
     HERO: "https://images.pexels.com/photos/2113556/pexels-photo-2113556.jpeg",
-    DEFAULT_HERO: "https://images.pexels.com/photos/2113556/pexels-photo-2113556.jpeg",
-    FOOD_1: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg",
+    DEFAULT_HERO:
+      "https://images.pexels.com/photos/2113556/pexels-photo-2113556.jpeg",
+    FOOD_1:
+      "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg",
     FOOD_2: "https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg",
-    FOOD_3: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg",
-    COOKING: "https://images.pexels.com/photos/1267323/pexels-photo-1267323.jpeg",
+    FOOD_3:
+      "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg",
+    COOKING:
+      "https://images.pexels.com/photos/1267323/pexels-photo-1267323.jpeg",
   },
 
   // Favicon

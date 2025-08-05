@@ -4,9 +4,11 @@ import { FULL_IMAGE_URLS } from "@/config/constants";
 
 interface MainLayoutProps {
   children: ReactNode;
+  logoUrl?: string;
+  backgroundImageUrl?: string;
 }
 
-export default function MainLayout({ children }: MainLayoutProps) {
+export default function MainLayout({ children, logoUrl, backgroundImageUrl }: MainLayoutProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
@@ -18,7 +20,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
           className="absolute inset-0 bg-cover bg-center bg-fixed bg-no-repeat"
           style={{
             backgroundImage: imageLoaded
-              ? `url(${FULL_IMAGE_URLS.HERO_BG})`
+              ? `url(${backgroundImageUrl || FULL_IMAGE_URLS.HERO_BG})`
               : "none",
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -28,7 +30,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
         >
           {/* Preload image */}
           <img
-            src={FULL_IMAGE_URLS.HERO_BG}
+            src={backgroundImageUrl || FULL_IMAGE_URLS.HERO_BG}
             alt=""
             className="hidden"
             onLoad={() => {
@@ -47,7 +49,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
       {/* Content overlay */}
       <div className="min-h-screen bg-black/20 backdrop-blur-sm relative z-10">
-        <MainNavbar />
+        <MainNavbar logoUrl={logoUrl} />
         <main className="pt-0 pb-0">{children}</main>
       </div>
     </div>

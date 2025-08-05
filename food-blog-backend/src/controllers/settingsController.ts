@@ -62,7 +62,7 @@ export const settingsController = {
         "🔍 Returning settings with about:",
         JSON.stringify(settingsWithAbout, null, 2)
       );
-      
+
       // Ensure we're returning a plain object
       const plainSettings = JSON.parse(JSON.stringify(settingsWithAbout));
       res.json(plainSettings);

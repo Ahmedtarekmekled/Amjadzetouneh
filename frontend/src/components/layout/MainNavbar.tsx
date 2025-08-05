@@ -25,7 +25,11 @@ const navigation = {
   ],
 };
 
-export default function MainNavbar() {
+interface MainNavbarProps {
+  logoUrl?: string;
+}
+
+export default function MainNavbar({ logoUrl }: MainNavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
   const { language, setLanguage } = useLanguage();
@@ -65,7 +69,7 @@ export default function MainNavbar() {
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-3 group">
               <Image
-                src={FULL_IMAGE_URLS.LOGO_PNG}
+                src={logoUrl || FULL_IMAGE_URLS.LOGO_PNG}
                 alt="Amjad Zetouneh Logo"
                 width={70}
                 height={70}

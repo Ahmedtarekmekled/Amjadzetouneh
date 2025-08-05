@@ -14,6 +14,7 @@ import { postService } from "@/services/postService";
 import { settingsService } from "@/services/settingsService";
 import { BlogPost } from "@/types/blog";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import MainLayout from "@/components/layouts/MainLayout";
 
 // Improved type definitions
 interface ProfileData {
@@ -189,16 +190,31 @@ export default function LandingPage() {
         />
       </Head>
 
-      <main className={`min-h-screen ${theme === "dark" ? "dark" : ""}`}>
+      <MainLayout 
+        logoUrl={(settings.branding as any)?.logo}
+        backgroundImageUrl={settings.branding?.hero?.backgroundImage}
+      >
+        <main className={`min-h-screen ${theme === "dark" ? "dark" : ""}`}>
         {/* Hero Section */}
         <section className="relative w-full">
-          <HeroSection
-            content={settings.branding?.hero || defaultSettings.branding?.hero}
-            backgroundImage={
-              settings.branding?.hero?.backgroundImage ||
-              defaultSettings.branding?.hero?.backgroundImage
-            }
-          />
+                  <HeroSection
+          content={{
+            en: {
+              title: (settings.branding?.hero?.en as any)?.title || "Culinary Adventures Await",
+              description: (settings.branding?.hero?.en as any)?.subtitle || "Discover mouthwatering recipes, cooking tips, and culinary stories that will inspire your next kitchen masterpiece",
+              buttonText: (settings.branding?.hero?.en as any)?.ctaText || "Explore Recipes",
+            },
+            ar: {
+              title: (settings.branding?.hero?.ar as any)?.title || "مغامرات الطهي تنتظرك",
+              description: (settings.branding?.hero?.ar as any)?.subtitle || "اكتشف وصفات شهية ونصائح طهي وقصص طهي ستلهمك لتحضير تحفة طهي جديدة",
+              buttonText: (settings.branding?.hero?.ar as any)?.ctaText || "استكشف الوصفات",
+            },
+          }}
+          backgroundImage={
+            settings.branding?.hero?.backgroundImage ||
+            defaultSettings.branding?.hero?.backgroundImage
+          }
+        />
         </section>
 
         {/* Curved Divider: Hero → Featured Recipes */}
@@ -261,7 +277,8 @@ export default function LandingPage() {
 
         {/* Footer */}
         <Footer />
-      </main>
+        </main>
+      </MainLayout>
     </>
   );
 }

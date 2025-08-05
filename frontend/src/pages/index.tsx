@@ -194,7 +194,7 @@ export default function LandingPage() {
       {console.log("🎯 MainLayout props:", {
         logoUrl: (settings.branding as any)?.logo,
         backgroundImageUrl: settings.branding?.hero?.backgroundImage,
-        settings: settings
+        settings: settings,
       })}
       <MainLayout
         logoUrl={(settings.branding as any)?.logo}

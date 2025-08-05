@@ -21,12 +21,14 @@ const DEFAULT_SETTINGS = {
       backgroundImage: "/images/default-hero.jpg",
       en: {
         title: "Culinary Adventures Await",
-        subtitle: "Discover mouthwatering recipes, cooking tips, and culinary stories that will inspire your next kitchen masterpiece",
+        subtitle:
+          "Discover mouthwatering recipes, cooking tips, and culinary stories that will inspire your next kitchen masterpiece",
         ctaText: "Explore Recipes",
       },
       ar: {
         title: "مغامرات الطهي تنتظرك",
-        subtitle: "اكتشف وصفات شهية ونصائح طهي وقصص طهي ستلهمك لتحضير تحفة طهي جديدة",
+        subtitle:
+          "اكتشف وصفات شهية ونصائح طهي وقصص طهي ستلهمك لتحضير تحفة طهي جديدة",
         ctaText: "استكشف الوصفات",
       },
     },

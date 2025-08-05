@@ -9,7 +9,7 @@ import uploadRoutes from "./routes/uploadRoutes";
 import multer from "multer";
 import jwt from "jsonwebtoken";
 import socialRoutes from "./routes/socialRoutes";
-import settingsRoutes from "./routes/settings";
+import settingsRoutes from "./routes/settingsRoutes";
 import tagRoutes from "./routes/tagRoutes";
 
 const app = express();

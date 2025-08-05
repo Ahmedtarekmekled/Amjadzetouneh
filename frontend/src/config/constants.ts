@@ -17,8 +17,12 @@ export const IMAGE_URLS = {
 
   // Background images
   BACKGROUND: {
-    HERO: "/images/hero-bg.jpg",
-    DEFAULT_HERO: "/images/default-hero.jpg",
+    HERO: "https://images.pexels.com/photos/2113556/pexels-photo-2113556.jpeg",
+    DEFAULT_HERO: "https://images.pexels.com/photos/2113556/pexels-photo-2113556.jpeg",
+    FOOD_1: "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg",
+    FOOD_2: "https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg",
+    FOOD_3: "https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg",
+    COOKING: "https://images.pexels.com/photos/1267323/pexels-photo-1267323.jpeg",
   },
 
   // Favicon
@@ -39,8 +43,12 @@ export const FULL_IMAGE_URLS = {
   BASE_URL: IMAGE_URLS.BASE_URL,
   LOGO_PNG: IMAGE_URLS.getFullUrl(IMAGE_URLS.LOGO.PNG),
   LOGO_SVG: IMAGE_URLS.getFullUrl(IMAGE_URLS.LOGO.SVG),
-  HERO_BG: IMAGE_URLS.getFullUrl(IMAGE_URLS.BACKGROUND.HERO),
-  DEFAULT_HERO: IMAGE_URLS.getFullUrl(IMAGE_URLS.BACKGROUND.DEFAULT_HERO),
+  HERO_BG: IMAGE_URLS.BACKGROUND.HERO,
+  DEFAULT_HERO: IMAGE_URLS.BACKGROUND.DEFAULT_HERO,
+  FOOD_1: IMAGE_URLS.BACKGROUND.FOOD_1,
+  FOOD_2: IMAGE_URLS.BACKGROUND.FOOD_2,
+  FOOD_3: IMAGE_URLS.BACKGROUND.FOOD_3,
+  COOKING: IMAGE_URLS.BACKGROUND.COOKING,
   FAVICON_ICO: IMAGE_URLS.getFullUrl(IMAGE_URLS.FAVICON.ICO),
   FAVICON_PNG: IMAGE_URLS.getFullUrl(IMAGE_URLS.FAVICON.PNG),
 };

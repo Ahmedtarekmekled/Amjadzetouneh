@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
-import Settings from '../models/Settings';
-import About from '../models/About';
+import { Request, Response } from "express";
+import Settings from "../models/Settings";
+import About from "../models/About";
 
 const DEFAULT_SETTINGS = {
   siteTitle: "Food Blog",
@@ -25,8 +25,11 @@ export const settingsController = {
     try {
       const [settings, about] = await Promise.all([
         Settings.findOne().lean(),
-        About.findOne().lean()
+        About.findOne().lean(),
       ]);
+
+      console.log("🔍 Settings data:", JSON.stringify(settings, null, 2));
+      console.log("🔍 About data:", JSON.stringify(about, null, 2));
 
       if (!settings) {
         // If about data exists, use its profile image
@@ -36,8 +39,9 @@ export const settingsController = {
             ...DEFAULT_SETTINGS.profileData,
             photo: about?.profileImage || DEFAULT_SETTINGS.profileData.photo,
             cv: about?.cvFile || DEFAULT_SETTINGS.profileData.cv,
-          }
+          },
         };
+        console.log("🔍 Returning default settings:", JSON.stringify(defaultWithAbout, null, 2));
         return res.json(defaultWithAbout);
       }
 
@@ -48,12 +52,13 @@ export const settingsController = {
           ...settings.profileData,
           photo: about?.profileImage || settings.profileData.photo,
           cv: about?.cvFile || settings.profileData.cv,
-        }
+        },
       };
 
+      console.log("🔍 Returning settings with about:", JSON.stringify(settingsWithAbout, null, 2));
       res.json(settingsWithAbout);
     } catch (error) {
-      console.error('Error fetching settings:', error);
+      console.error("Error fetching settings:", error);
       res.status(500).json({ message: "Error fetching settings" });
     }
   },
@@ -74,30 +79,36 @@ export const settingsController = {
     try {
       const settings = await Settings.findOne().lean();
       if (!settings) {
-        return res.status(404).json({ message: 'No settings found' });
+        return res.status(404).json({ message: "No settings found" });
       }
       res.json(settings);
     } catch (error) {
-      console.error('Error in exportSettings:', error);
-      res.status(500).json({ message: 'Error exporting settings' });
+      console.error("Error in exportSettings:", error);
+      res.status(500).json({ message: "Error exporting settings" });
     }
   },
 
   importSettings: async (req: Request, res: Response) => {
     try {
       let settings = await Settings.findOne();
-      
+
       if (settings) {
         Object.assign(settings, req.body);
         await settings.save();
-        res.json({ message: 'Settings imported successfully', settings: settings.toObject() });
+        res.json({
+          message: "Settings imported successfully",
+          settings: settings.toObject(),
+        });
       } else {
         settings = await Settings.create(req.body);
-        res.json({ message: 'Settings imported successfully', settings: settings.toObject() });
+        res.json({
+          message: "Settings imported successfully",
+          settings: settings.toObject(),
+        });
       }
     } catch (error) {
-      console.error('Error in importSettings:', error);
-      res.status(400).json({ message: 'Error importing settings' });
+      console.error("Error in importSettings:", error);
+      res.status(400).json({ message: "Error importing settings" });
     }
   },
 
@@ -107,8 +118,8 @@ export const settingsController = {
       const newSettings = await Settings.create({});
       res.json(newSettings.toObject());
     } catch (error) {
-      console.error('Error in resetSettings:', error);
-      res.status(500).json({ message: 'Error resetting settings' });
+      console.error("Error in resetSettings:", error);
+      res.status(500).json({ message: "Error resetting settings" });
     }
-  }
-}; 
+  },
+};

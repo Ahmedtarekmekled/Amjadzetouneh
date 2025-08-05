@@ -5,7 +5,7 @@ const nextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true,
-    domains: ["localhost", "amjadzetouneh.onrender.com"],
+    domains: ["localhost", "amjadzetouneh.onrender.com", "images.pexels.com"],
     remotePatterns: [
       {
         protocol: "http",
@@ -17,6 +17,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "amjadzetouneh.onrender.com",
         pathname: "/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.pexels.com",
+        pathname: "/photos/**",
       },
     ],
   },

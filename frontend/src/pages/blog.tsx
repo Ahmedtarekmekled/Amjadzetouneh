@@ -18,6 +18,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { BlogPost } from "@/types/blog";
 import { postService } from "@/services/postService";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import PageLoader from "@/components/ui/PageLoader";
 import { getCategoriesByLanguage, findCategoryById } from "@/config/categories";
 
 interface FilterOptions {
@@ -295,9 +296,7 @@ export default function BlogPage() {
   if (isLoading) {
     return (
       <MainLayout>
-        <div className="flex items-center justify-center min-h-screen">
-          <LoadingSpinner />
-        </div>
+        <PageLoader text="Loading delicious recipes..." />
       </MainLayout>
     );
   }

@@ -5,6 +5,7 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import AboutForm from "@/components/about/AboutForm";
 import { aboutService, AboutData } from "@/services/aboutService";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import PageLoader from "@/components/ui/PageLoader";
 import Toast from "@/components/ui/Toast";
 import { UserIcon, DocumentTextIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
@@ -69,9 +70,7 @@ export default function AboutPage() {
     return (
       <ProtectedRoute>
         <DashboardLayout>
-          <div className="flex items-center justify-center min-h-[400px]">
-            <LoadingSpinner />
-          </div>
+          <PageLoader text="Loading profile information..." showBackground={false} />
         </DashboardLayout>
       </ProtectedRoute>
     );

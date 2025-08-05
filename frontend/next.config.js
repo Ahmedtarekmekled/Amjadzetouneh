@@ -25,10 +25,6 @@ const nextConfig = {
   },
   // Ensure static assets are properly handled
   assetPrefix: process.env.NODE_ENV === 'production' ? '.' : '',
-  // Copy static assets to output directory
-  experimental: {
-    outputFileTracingRoot: undefined,
-  },
 };
 
 module.exports = nextConfig;

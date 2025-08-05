@@ -90,11 +90,11 @@ export const settingsController = {
       if (settings) {
         Object.assign(settings, req.body);
         await settings.save();
+        res.json({ message: 'Settings imported successfully', settings: settings.toObject() });
       } else {
         settings = await Settings.create(req.body);
+        res.json({ message: 'Settings imported successfully', settings: settings.toObject() });
       }
-      
-      res.json({ message: 'Settings imported successfully' });
     } catch (error) {
       console.error('Error in importSettings:', error);
       res.status(400).json({ message: 'Error importing settings' });

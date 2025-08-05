@@ -37,7 +37,11 @@ app.use("/_next", express.static(path.join(process.cwd(), "public/_next")));
 // Serve images directory specifically
 app.use(
   "/images",
-  express.static(path.join(process.cwd(), "public/frontend/images"))
+  express.static(path.join(process.cwd(), "public/frontend/images"), {
+    setHeaders: (res, path) => {
+      console.log(`📁 Serving image: ${path}`);
+    }
+  })
 );
 
 // Serve favicon and other static assets
@@ -65,6 +69,10 @@ app.use("/uploads", express.static(path.join(process.cwd(), "public/uploads")));
 
 // Logging middleware
 app.use((req: Request, res: Response, next: NextFunction) => {
+  // Log image requests for debugging
+  if (req.path.includes('/images/') || req.path.includes('/favicon') || req.path.includes('/manifest')) {
+    console.log(`📁 Static asset request: ${req.method} ${req.path}`);
+  }
   next();
 });
 
@@ -101,6 +109,25 @@ app.get("*", (req: Request, res: Response) => {
   // Skip API routes
   if (req.path.startsWith("/api/")) {
     return res.status(404).json({ message: "API endpoint not found" });
+  }
+
+  // Handle image requests with better error messages
+  if (req.path.includes('/images/')) {
+    const imagePath = path.join(process.cwd(), "public/frontend", req.path);
+    console.log(`🔍 Looking for image: ${imagePath}`);
+    
+    if (require("fs").existsSync(imagePath)) {
+      console.log(`✅ Image found: ${req.path}`);
+      return res.sendFile(imagePath);
+    } else {
+      console.log(`❌ Image not found: ${req.path}`);
+      console.log(`📁 Available images:`, require("fs").readdirSync(path.join(process.cwd(), "public/frontend/images")));
+      return res.status(404).json({ 
+        message: "Image not found", 
+        path: req.path,
+        availableImages: require("fs").readdirSync(path.join(process.cwd(), "public/frontend/images"))
+      });
+    }
   }
 
   // Try to serve the requested file first

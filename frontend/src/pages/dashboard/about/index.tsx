@@ -75,7 +75,7 @@ export default function AboutPage() {
   return (
     <ProtectedRoute>
       <DashboardLayout>
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
           {/* Header */}
           <div className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -114,15 +114,15 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+              <div className="backdrop-blur-md bg-white/30 dark:bg-gray-800/30 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/50 p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                      <UserIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                    <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
+                      <UserIcon className="h-5 w-5 text-white" />
                     </div>
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
                       Profile Status
                     </p>
                     <p className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -132,15 +132,15 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+              <div className="backdrop-blur-md bg-white/30 dark:bg-gray-800/30 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/50 p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <div className="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                      <DocumentTextIcon className="h-5 w-5 text-green-600 dark:text-green-400" />
+                    <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-green-600 rounded-lg flex items-center justify-center">
+                      <DocumentTextIcon className="h-5 w-5 text-white" />
                     </div>
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
                       CV Status
                     </p>
                     <p className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -150,15 +150,15 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+              <div className="backdrop-blur-md bg-white/30 dark:bg-gray-800/30 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/50 p-6">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                      <DocumentTextIcon className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+                    <div className="w-8 h-8 bg-gradient-to-r from-purple-400 to-purple-600 rounded-lg flex items-center justify-center">
+                      <DocumentTextIcon className="h-5 w-5 text-white" />
                     </div>
                   </div>
                   <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
                       CV Visibility
                     </p>
                     <p className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -171,7 +171,7 @@ export default function AboutPage() {
 
             {/* Error Display */}
             {error && (
-              <div className="mb-6 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-400 p-4 rounded-lg">
+              <div className="mb-6 backdrop-blur-md bg-red-50/50 dark:bg-red-900/20 border-l-4 border-red-400 p-4 rounded-lg">
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <svg
@@ -196,8 +196,8 @@ export default function AboutPage() {
             )}
 
             {/* Form Container */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+            <div className="backdrop-blur-md bg-white/30 dark:bg-gray-800/30 rounded-xl shadow-2xl border border-white/20 dark:border-gray-700/50 overflow-hidden">
+              <div className="px-6 py-4 border-b border-white/20 dark:border-gray-700/50">
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
                   Edit About Information
                 </h2>

@@ -39,6 +39,12 @@ if [ -d "frontend/out" ]; then
         cp -r frontend/public/* food-blog-backend/public/frontend/
         echo "✅ Static assets copied from frontend/public"
         
+        # Force copy specific files to ensure they exist
+        echo "📁 Force copying critical assets..."
+        cp -f frontend/public/favicon.ico food-blog-backend/public/frontend/
+        cp -f frontend/public/manifest.json food-blog-backend/public/frontend/
+        cp -rf frontend/public/images food-blog-backend/public/frontend/
+        
         # Verify specific files exist
         echo "📁 Verifying static assets..."
         if [ -f "food-blog-backend/public/frontend/favicon.ico" ]; then

@@ -35,23 +35,32 @@ if [ -d "frontend/out" ]; then
     # Copy static assets from frontend/public to frontend build
     echo "📁 Copying static assets..."
     if [ -d "frontend/public" ]; then
+        # Copy all static assets
         cp -r frontend/public/* food-blog-backend/public/frontend/
         echo "✅ Static assets copied from frontend/public"
         
-        # Force copy specific files to ensure they exist
-        if [ -f "frontend/public/favicon.ico" ]; then
+        # Verify specific files exist
+        echo "📁 Verifying static assets..."
+        if [ -f "food-blog-backend/public/frontend/favicon.ico" ]; then
+            echo "✅ favicon.ico exists in build"
+        else
+            echo "❌ favicon.ico missing - copying directly"
             cp frontend/public/favicon.ico food-blog-backend/public/frontend/
-            echo "✅ favicon.ico copied"
         fi
         
-        if [ -f "frontend/public/manifest.json" ]; then
+        if [ -f "food-blog-backend/public/frontend/manifest.json" ]; then
+            echo "✅ manifest.json exists in build"
+        else
+            echo "❌ manifest.json missing - copying directly"
             cp frontend/public/manifest.json food-blog-backend/public/frontend/
-            echo "✅ manifest.json copied"
         fi
         
-        if [ -d "frontend/public/images" ]; then
+        if [ -d "food-blog-backend/public/frontend/images" ]; then
+            echo "✅ images directory exists in build"
+            ls -la food-blog-backend/public/frontend/images/
+        else
+            echo "❌ images directory missing - copying directly"
             cp -r frontend/public/images food-blog-backend/public/frontend/
-            echo "✅ images directory copied"
         fi
     fi
     

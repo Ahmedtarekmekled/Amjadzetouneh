@@ -39,10 +39,10 @@ export interface IPost extends Document {
 }
 
 const postContentSchema = new Schema<PostContent>({
-  title: { type: String, required: true },
-  content: { type: String, required: true },
-  metaTitle: { type: String, required: true },
-  metaDescription: { type: String, required: true },
+  title: { type: String, default: "" },
+  content: { type: String, default: "" },
+  metaTitle: { type: String, default: "" },
+  metaDescription: { type: String, default: "" },
   keywords: [{ type: String }],
 });
 

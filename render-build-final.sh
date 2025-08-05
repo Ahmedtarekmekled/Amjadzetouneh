@@ -91,6 +91,10 @@ if [ -d "frontend/out" ]; then
         echo "Logo exists: $([ -f "food-blog-backend/public/frontend/images/logo.png" ] && echo "✅" || echo "❌")"
         echo "Hero bg exists: $([ -f "food-blog-backend/public/frontend/images/hero-bg.jpg" ] && echo "✅" || echo "❌")"
         echo "Default hero exists: $([ -f "food-blog-backend/public/frontend/images/default-hero.jpg" ] && echo "✅" || echo "❌")"
+        
+        # Run Node.js script for additional static asset copying
+        echo "📁 Running Node.js static asset script..."
+        node copy-static-assets.js
     fi
     
     # Verify the index.html file exists

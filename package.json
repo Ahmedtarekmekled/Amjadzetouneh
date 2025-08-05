@@ -21,7 +21,8 @@
     "deploy:prepare": "npm run build && npm run copy-env",
     "copy-env": "cp food-blog-backend/.env.example food-blog-backend/.env",
     "deploy:render": "chmod +x render-build.sh && npm run build",
-    "setup-admin": "node setup-admin.js"
+    "setup-admin": "node setup-admin.js",
+    "copy-assets": "node copy-static-assets.js"
   },
   "keywords": [
     "food-blog",

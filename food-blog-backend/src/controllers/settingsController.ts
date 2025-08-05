@@ -24,8 +24,8 @@ export const settingsController = {
   getAllSettings: async (_req: Request, res: Response) => {
     try {
       const [settings, about] = await Promise.all([
-        Settings.findOne(),
-        About.findOne()
+        Settings.findOne().lean(),
+        About.findOne().lean()
       ]);
 
       if (!settings) {
@@ -43,11 +43,11 @@ export const settingsController = {
 
       // If settings exist but we want to use about data for profile
       const settingsWithAbout = {
-        ...settings.toObject(),
+        ...settings,
         profileData: {
-          ...settings.toObject().profileData,
-          photo: about?.profileImage || settings.toObject().profileData.photo,
-          cv: about?.cvFile || settings.toObject().profileData.cv,
+          ...settings.profileData,
+          photo: about?.profileImage || settings.profileData.photo,
+          cv: about?.cvFile || settings.profileData.cv,
         }
       };
 
@@ -63,7 +63,7 @@ export const settingsController = {
       const settings = await Settings.findOneAndUpdate({}, req.body, {
         new: true,
         upsert: true,
-      });
+      }).lean();
       res.json(settings);
     } catch (error) {
       res.status(500).json({ message: "Error updating settings" });
@@ -72,7 +72,7 @@ export const settingsController = {
 
   exportSettings: async (req: Request, res: Response) => {
     try {
-      const settings = await Settings.findOne();
+      const settings = await Settings.findOne().lean();
       if (!settings) {
         return res.status(404).json({ message: 'No settings found' });
       }

@@ -4,7 +4,7 @@ import Social from "../models/Social";
 export const socialController = {
   getAllSocials: async (req: Request, res: Response) => {
     try {
-      const socials = await Social.find({ isActive: true });
+      const socials = await Social.find({ isActive: true }).lean();
       res.json(socials);
     } catch (error) {
       res.status(500).json({ message: "Error fetching socials" });
@@ -20,7 +20,7 @@ export const socialController = {
         icon
       });
       await social.save();
-      res.status(201).json(social);
+      res.status(201).json(social.toObject());
     } catch (error) {
       res.status(400).json({ message: "Error creating social" });
     }
@@ -34,7 +34,7 @@ export const socialController = {
         id,
         { platform, url, icon, isActive },
         { new: true }
-      );
+      ).lean();
       if (!social) {
         return res.status(404).json({ message: "Social not found" });
       }

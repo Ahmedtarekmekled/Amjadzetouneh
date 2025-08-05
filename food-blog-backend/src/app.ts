@@ -28,9 +28,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Serve uploaded files
-app.use("/uploads", express.static(path.join(process.cwd(), "public/uploads")));
-
 // Serve frontend static files (for combined deployment)
 app.use(express.static(path.join(process.cwd(), "public/frontend")));
 
@@ -48,12 +45,6 @@ app.use(
 app.use(
   "/manifest.json",
   express.static(path.join(process.cwd(), "public/frontend/manifest.json"))
-);
-
-// Serve images directory
-app.use(
-  "/images",
-  express.static(path.join(process.cwd(), "public/frontend/images"))
 );
 
 // Serve additional static assets

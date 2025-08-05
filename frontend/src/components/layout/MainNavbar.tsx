@@ -122,7 +122,7 @@ export default function MainNavbar({ logoUrl }: MainNavbarProps) {
       </header>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-black border-t border-gray-800 z-50">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-black/95 backdrop-blur-sm border-t border-gray-800 z-[9999] shadow-lg">
         <div
           className={`grid grid-cols-4 h-16 ${
             language === "ar" ? "rtl" : "ltr"

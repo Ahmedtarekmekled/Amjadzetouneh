@@ -37,6 +37,25 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+// Public download route - must come before protected routes
+router.get("/download/:filename", downloadFile);
+
+// Public file serving route
+router.get("/:filename", (req: Request, res: Response) => {
+  try {
+    const { filename } = req.params;
+    const filePath = path.join(process.cwd(), "public/uploads", filename);
+    
+    if (fs.existsSync(filePath)) {
+      res.sendFile(filePath);
+    } else {
+      res.status(404).json({ message: "File not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Error serving file" });
+  }
+});
+
 // Protected routes
 router.use(authenticateToken);
 
@@ -116,8 +135,5 @@ router.delete("/:type", async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error deleting file" });
   }
 });
-
-// Public download route
-router.get("/download/:filename", downloadFile);
 
 export default router;

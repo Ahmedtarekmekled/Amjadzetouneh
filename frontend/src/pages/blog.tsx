@@ -73,17 +73,12 @@ export default function BlogPage() {
   const loadPosts = async () => {
     try {
       setIsLoading(true);
-      // Try public endpoint first, fallback to authenticated endpoint
-      let fetchedPosts = await postService.getPublicPosts();
-
-      // If public endpoint doesn't work, try the authenticated one
-      if (!fetchedPosts || fetchedPosts.length === 0) {
-        fetchedPosts = await postService.getAllPosts();
-      }
-
+      // Use public endpoint for blog page
+      const fetchedPosts = await postService.getPublicPosts();
       setPosts(fetchedPosts);
       setFilteredPosts(fetchedPosts);
     } catch (error) {
+      console.error("Error loading posts:", error);
       setError("Failed to load blog posts");
     } finally {
       setIsLoading(false);

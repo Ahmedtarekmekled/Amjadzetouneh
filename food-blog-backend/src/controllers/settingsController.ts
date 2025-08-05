@@ -85,7 +85,7 @@ export const settingsController = {
 
   importSettings: async (req: Request, res: Response) => {
     try {
-      let settings = await Settings.findOne().lean();
+      let settings = await Settings.findOne();
       
       if (settings) {
         Object.assign(settings, req.body);
@@ -105,7 +105,7 @@ export const settingsController = {
     try {
       await Settings.deleteOne({});
       const newSettings = await Settings.create({});
-      res.json(newSettings);
+      res.json(newSettings.toObject());
     } catch (error) {
       console.error('Error in resetSettings:', error);
       res.status(500).json({ message: 'Error resetting settings' });

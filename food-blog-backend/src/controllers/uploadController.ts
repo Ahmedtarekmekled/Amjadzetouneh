@@ -31,7 +31,7 @@ export const uploadController = {
       );
 
       // Update the About document with the new image URL
-      const about = await About.findOne().lean();
+      const about = await About.findOne();
       if (about) {
         // If there's an existing image, delete it from Cloudinary
         if (about.profileImage) {
@@ -84,7 +84,7 @@ export const uploadController = {
       const cvPath = path.join(uploadsDir, cvFilename);
 
       // Delete existing CV if it exists
-      const about = await About.findOne().lean();
+      const about = await About.findOne();
       if (about?.cvFile) {
         const oldCvPath = path.join(uploadsDir, path.basename(about.cvFile));
         if (fs.existsSync(oldCvPath)) {
@@ -118,7 +118,7 @@ export const uploadController = {
   deleteFile: (async (req: Request, res: Response) => {
     try {
       const { type } = req.query;
-      const about = await About.findOne().lean();
+      const about = await About.findOne();
 
       if (!about) {
         return res.status(404).json({ message: "About not found" });

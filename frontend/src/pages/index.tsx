@@ -214,7 +214,8 @@ export default function LandingPage() {
                 Follow Our Culinary Journey
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                Join our community of food lovers and get daily inspiration, behind-the-scenes content, and exclusive recipes
+                Join our community of food lovers and get daily inspiration,
+                behind-the-scenes content, and exclusive recipes
               </p>
             </div>
             <SocialLinks links={defaultSettings.socialLinks} />

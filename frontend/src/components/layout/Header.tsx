@@ -66,7 +66,7 @@ export default function Header() {
             >
               <div className="relative h-10 w-10 overflow-hidden rounded-lg transform transition-transform group-hover:scale-105">
                 <Image
-                  src="/images/logo.svg"
+                  src="/images/logo.png"
                   alt="Logo"
                   fill
                   className="object-cover"

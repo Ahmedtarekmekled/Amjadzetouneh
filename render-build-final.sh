@@ -45,6 +45,18 @@ if [ -d "frontend/out" ]; then
         cp -f frontend/public/manifest.json food-blog-backend/public/frontend/
         cp -rf frontend/public/images food-blog-backend/public/frontend/
         
+        # Ensure all default images exist
+        echo "📁 Creating default images..."
+        if [ ! -f "food-blog-backend/public/frontend/images/default-hero.jpg" ]; then
+            cp food-blog-backend/public/frontend/images/hero-bg.jpg food-blog-backend/public/frontend/images/default-hero.jpg
+        fi
+        if [ ! -f "food-blog-backend/public/frontend/images/default-logo.png" ]; then
+            cp food-blog-backend/public/frontend/images/logo.png food-blog-backend/public/frontend/images/default-logo.png
+        fi
+        if [ ! -f "food-blog-backend/public/frontend/images/default-favicon.png" ]; then
+            cp food-blog-backend/public/frontend/favicon.ico food-blog-backend/public/frontend/images/default-favicon.png
+        fi
+        
         # Verify specific files exist
         echo "📁 Verifying static assets..."
         if [ -f "food-blog-backend/public/frontend/favicon.ico" ]; then
@@ -64,10 +76,21 @@ if [ -d "frontend/out" ]; then
         if [ -d "food-blog-backend/public/frontend/images" ]; then
             echo "✅ images directory exists in build"
             ls -la food-blog-backend/public/frontend/images/
+            echo "📁 Checking for specific images:"
+            ls -la food-blog-backend/public/frontend/images/ | grep -E "(logo|hero|favicon|default)"
         else
             echo "❌ images directory missing - copying directly"
             cp -r frontend/public/images food-blog-backend/public/frontend/
         fi
+        
+        # Final verification
+        echo "📁 Final asset verification:"
+        echo "Favicon exists: $([ -f "food-blog-backend/public/frontend/favicon.ico" ] && echo "✅" || echo "❌")"
+        echo "Manifest exists: $([ -f "food-blog-backend/public/frontend/manifest.json" ] && echo "✅" || echo "❌")"
+        echo "Images dir exists: $([ -d "food-blog-backend/public/frontend/images" ] && echo "✅" || echo "❌")"
+        echo "Logo exists: $([ -f "food-blog-backend/public/frontend/images/logo.png" ] && echo "✅" || echo "❌")"
+        echo "Hero bg exists: $([ -f "food-blog-backend/public/frontend/images/hero-bg.jpg" ] && echo "✅" || echo "❌")"
+        echo "Default hero exists: $([ -f "food-blog-backend/public/frontend/images/default-hero.jpg" ] && echo "✅" || echo "❌")"
     fi
     
     # Verify the index.html file exists

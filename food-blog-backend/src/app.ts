@@ -41,6 +41,10 @@ app.use("/images", express.static(path.join(process.cwd(), "public/frontend/imag
 app.use("/favicon.ico", express.static(path.join(process.cwd(), "public/frontend/favicon.ico")));
 app.use("/manifest.json", express.static(path.join(process.cwd(), "public/frontend/manifest.json")));
 
+// Serve additional static assets
+app.use("/logo.png", express.static(path.join(process.cwd(), "public/frontend/images/logo.png")));
+app.use("/logo.svg", express.static(path.join(process.cwd(), "public/frontend/images/logo.svg")));
+
 // Authenticated file downloads
 app.use("/uploads", (req: Request, res: Response, next: NextFunction) => {
   // Check for token in query string

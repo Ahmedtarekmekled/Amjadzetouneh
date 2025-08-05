@@ -41,35 +41,15 @@ app.use("/images", express.static(path.join(process.cwd(), "public/frontend/imag
 app.use("/favicon.ico", express.static(path.join(process.cwd(), "public/frontend/favicon.ico")));
 app.use("/manifest.json", express.static(path.join(process.cwd(), "public/frontend/manifest.json")));
 
+// Serve images directory
+app.use("/images", express.static(path.join(process.cwd(), "public/frontend/images")));
+
 // Serve additional static assets
 app.use("/logo.png", express.static(path.join(process.cwd(), "public/frontend/images/logo.png")));
 app.use("/logo.svg", express.static(path.join(process.cwd(), "public/frontend/images/logo.svg")));
 
-// Authenticated file downloads
-app.use("/uploads", (req: Request, res: Response, next: NextFunction) => {
-  // Check for token in query string
-  const token = req.query.token as string;
-
-  if (!token) {
-    return res.status(401).json({ message: "No token provided" });
-  }
-
-  try {
-    // Verify token
-    jwt.verify(token, process.env.JWT_SECRET!);
-
-    // If token is valid, proceed with download
-    const filePath = path.join(__dirname, "../public/uploads", req.path);
-    res.download(filePath, (err: any) => {
-      if (err) {
-        // If file doesn't exist or other error, continue to next middleware
-        next();
-      }
-    });
-  } catch (error) {
-    res.status(401).json({ message: "Invalid token" });
-  }
-});
+// Public uploads directory - no authentication required
+app.use("/uploads", express.static(path.join(process.cwd(), "public/uploads")));
 
 // Logging middleware
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -106,8 +86,7 @@ app.use("/api/settings", settingsRoutes);
 
 
 
-// Serve uploads directory directly
-app.use("/uploads", express.static(path.join(process.cwd(), "public/uploads")));
+
 
 // Serve frontend for all other routes (SPA fallback)
 app.get("*", (req: Request, res: Response) => {

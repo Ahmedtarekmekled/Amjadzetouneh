@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { FULL_IMAGE_URLS } from "@/config/constants";
 
 interface HeroSectionProps {
   content?: {
@@ -35,7 +36,7 @@ export default function HeroSection({
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <Image
-          src={backgroundImage || "/images/hero-bg.jpg"}
+          src={backgroundImage || FULL_IMAGE_URLS.HERO_BG}
           alt="Culinary background"
           fill
           quality={100}

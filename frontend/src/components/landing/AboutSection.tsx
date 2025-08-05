@@ -8,6 +8,7 @@ import {
   StarIcon,
   ArrowRightIcon,
 } from "@heroicons/react/24/outline";
+import { FULL_IMAGE_URLS } from "@/config/constants";
 
 interface ProfileData {
   name: string;
@@ -66,7 +67,7 @@ export default function AboutSection({ profileData }: AboutSectionProps) {
               {/* Main Image */}
               <div className="relative h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src={profileData?.photo || "/images/hero-bg.jpg"}
+                  src={profileData?.photo || FULL_IMAGE_URLS.HERO_BG}
                   alt={profileData?.name || "Chef"}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -74,7 +75,7 @@ export default function AboutSection({ profileData }: AboutSectionProps) {
                   onError={(e) => {
                     // Fallback to a different image if the current one fails
                     const target = e.target as HTMLImageElement;
-                    target.src = "/images/hero-bg.jpg";
+                    target.src = FULL_IMAGE_URLS.HERO_BG;
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>

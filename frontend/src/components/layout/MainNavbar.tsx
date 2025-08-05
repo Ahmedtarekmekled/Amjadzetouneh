@@ -10,6 +10,7 @@ import {
   LanguageIcon,
 } from "@heroicons/react/24/outline";
 import Cookies from "js-cookie";
+import { FULL_IMAGE_URLS } from "@/config/constants";
 
 const navigation = {
   en: [
@@ -64,11 +65,12 @@ export default function MainNavbar() {
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-3 group">
               <Image
-                src="/images/logo.png"
-                alt="Culinary Tales Logo"
+                src={FULL_IMAGE_URLS.LOGO_PNG}
+                alt="Amjad Zetouneh Logo"
                 width={70}
                 height={70}
                 className="w-18 h-18 rounded-lg"
+                priority
               />
               <span
                 className={`font-display text-xl sm:text-2xl font-bold ${

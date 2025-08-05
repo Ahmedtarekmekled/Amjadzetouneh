@@ -17,6 +17,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import HeadMeta from "./HeadMeta";
 import ParticlesBackground from "../ui/ParticlesBackground";
 import { Settings } from "@/services/settingsService";
+import { FULL_IMAGE_URLS } from "@/config/constants";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -93,7 +94,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                 className="text-3xl font-bold text-white flex items-center space-x-3 relative z-10"
               >
                 <Image
-                  src="/images/logo.png"
+                  src={FULL_IMAGE_URLS.LOGO_PNG}
                   alt="Amjad Zetouneh Logo"
                   width={48}
                   height={48}

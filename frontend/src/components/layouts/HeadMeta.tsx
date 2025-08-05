@@ -1,13 +1,14 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { Settings } from "@/services/settingsService";
+import { FULL_IMAGE_URLS } from "@/config/constants";
 
 interface HeadMetaProps {
   settings: Settings | null;
 }
 
 const HeadMeta: React.FC<HeadMetaProps> = ({ settings }) => {
-  const [faviconUrl, setFaviconUrl] = useState("/favicon.ico");
+  const [faviconUrl, setFaviconUrl] = useState(FULL_IMAGE_URLS.FAVICON_ICO);
   const [faviconType, setFaviconType] = useState("image/x-icon");
 
   useEffect(() => {
@@ -37,7 +38,7 @@ const HeadMeta: React.FC<HeadMetaProps> = ({ settings }) => {
         <link rel="mask-icon" href={faviconUrl} color="#000000" />
       )}
       {/* Add manifest icon for PWA */}
-      <link rel="manifest" href="/manifest.json" />
+      <link rel="manifest" href={`${FULL_IMAGE_URLS.BASE_URL}/manifest.json`} />
     </Head>
   );
 };

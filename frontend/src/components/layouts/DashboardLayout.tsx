@@ -58,7 +58,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   return (
     <>
       <HeadMeta settings={settings} />
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-yellow-100 via-amber-50 to-orange-100 relative overflow-hidden">
         {/* Particles Background */}
         <ParticlesBackground />
 
@@ -94,10 +94,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               >
                 <Image
                   src="/images/logo.png"
-                  alt="Culinary Tales Logo"
+                  alt="Amjad Zetouneh Logo"
                   width={48}
                   height={48}
                   className="w-12 h-12 rounded-xl shadow-lg transform hover:scale-110 transition-transform duration-200"
+                  priority
                 />
                 <div>
                   <span className="bg-gradient-to-r from-yellow-200 to-amber-200 bg-clip-text text-transparent block">

@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import AboutForm from "@/components/about/AboutForm";
 import { aboutService, AboutData } from "@/services/aboutService";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import Toast from "@/components/ui/Toast";
-import { UserIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
+import { UserIcon, DocumentTextIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { motion } from "framer-motion";
 
 export default function AboutPage() {
+  const router = useRouter();
   const [aboutData, setAboutData] = useState<AboutData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -64,165 +67,151 @@ export default function AboutPage() {
 
   if (isLoading) {
     return (
-      <DashboardLayout>
-        <div className="flex items-center justify-center min-h-screen">
-          <LoadingSpinner />
-        </div>
-      </DashboardLayout>
+      <ProtectedRoute>
+        <DashboardLayout>
+          <div className="flex items-center justify-center min-h-[400px]">
+            <LoadingSpinner />
+          </div>
+        </DashboardLayout>
+      </ProtectedRoute>
     );
   }
 
   return (
     <ProtectedRoute>
       <DashboardLayout>
-        <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="space-y-8"
+        >
           {/* Header */}
-          <div className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="py-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="flex-shrink-0">
-                      <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
-                        <UserIcon className="h-6 w-6 text-white" />
-                      </div>
-                    </div>
-                    <div>
-                      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                        About Page
-                      </h1>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Manage your profile information, CV, and personal
-                        details
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="hidden sm:flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-                      <DocumentTextIcon className="h-4 w-4" />
-                      <span>
-                        Last updated: {new Date().toLocaleDateString()}
-                      </span>
-                    </div>
-                  </div>
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-amber-200 p-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="w-16 h-16 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-2xl flex items-center justify-center shadow-lg">
+                  <UserIcon className="h-8 w-8 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-yellow-600 bg-clip-text text-transparent">
+                    About Page
+                  </h1>
+                  <p className="text-amber-600 mt-1">
+                    Manage your profile information, CV, and personal details
+                  </p>
                 </div>
               </div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-indigo-600 transition-all duration-300 shadow-lg"
+              >
+                <SparklesIcon className="mr-2 h-5 w-5" />
+                Profile Settings
+              </motion.div>
             </div>
+          </div>
+
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-amber-200 p-6"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-amber-600">Profile Status</p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {aboutData?.profileImage ? "Complete" : "Incomplete"}
+                  </p>
+                </div>
+                <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-emerald-500 rounded-xl flex items-center justify-center">
+                  <UserIcon className="h-6 w-6 text-white" />
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-amber-200 p-6"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-amber-600">CV Status</p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {aboutData?.cvFile ? "Uploaded" : "Not Uploaded"}
+                  </p>
+                </div>
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-xl flex items-center justify-center">
+                  <DocumentTextIcon className="h-6 w-6 text-white" />
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-amber-200 p-6"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-amber-600">Content Status</p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {aboutData?.content?.en?.description ? "Complete" : "Incomplete"}
+                  </p>
+                </div>
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-500 rounded-xl flex items-center justify-center">
+                  <SparklesIcon className="h-6 w-6 text-white" />
+                </div>
+              </div>
+            </motion.div>
           </div>
 
           {/* Main Content */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="backdrop-blur-md bg-white/30 dark:bg-gray-800/30 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/50 p-6">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
-                      <UserIcon className="h-5 w-5 text-white" />
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
-                      Profile Status
-                    </p>
-                    <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                      {aboutData?.profileImage ? "Complete" : "Incomplete"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="backdrop-blur-md bg-white/30 dark:bg-gray-800/30 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/50 p-6">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-green-600 rounded-lg flex items-center justify-center">
-                      <DocumentTextIcon className="h-5 w-5 text-white" />
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
-                      CV Status
-                    </p>
-                    <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                      {aboutData?.cvFile ? "Uploaded" : "Not Uploaded"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="backdrop-blur-md bg-white/30 dark:bg-gray-800/30 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/50 p-6">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <div className="w-8 h-8 bg-gradient-to-r from-purple-400 to-purple-600 rounded-lg flex items-center justify-center">
-                      <DocumentTextIcon className="h-5 w-5 text-white" />
-                    </div>
-                  </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
-                      CV Visibility
-                    </p>
-                    <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                      {aboutData?.showCV ? "Public" : "Private"}
-                    </p>
-                  </div>
-                </div>
-              </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-amber-200 p-8"
+          >
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Profile Information
+              </h2>
+              <p className="text-gray-600">
+                Update your personal information, upload your photo, and manage your CV
+              </p>
             </div>
 
-            {/* Error Display */}
             {error && (
-              <div className="mb-6 backdrop-blur-md bg-red-50/50 dark:bg-red-900/20 border-l-4 border-red-400 p-4 rounded-lg">
-                <div className="flex">
-                  <div className="flex-shrink-0">
-                    <svg
-                      className="h-5 w-5 text-red-400"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-sm text-red-700 dark:text-red-400">
-                      {error}
-                    </p>
-                  </div>
-                </div>
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-red-600">{error}</p>
               </div>
             )}
 
-            {/* Form Container */}
-            <div className="backdrop-blur-md bg-white/30 dark:bg-gray-800/30 rounded-xl shadow-2xl border border-white/20 dark:border-gray-700/50 overflow-hidden">
-              <div className="px-6 py-4 border-b border-white/20 dark:border-gray-700/50">
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Edit About Information
-                </h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  Update your profile image, CV, and personal information
-                </p>
-              </div>
-              <div className="p-6">
-                <AboutForm
-                  initialData={aboutData || undefined}
-                  onSubmit={handleSubmit}
-                  isSubmitting={isSubmitting}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+            <AboutForm
+              initialData={aboutData || undefined}
+              onSubmit={handleSubmit}
+              isSubmitting={isSubmitting}
+            />
+          </motion.div>
+        </motion.div>
 
         {/* Toast */}
-        <Toast
-          show={toast.show}
-          type={toast.type}
-          message={toast.message}
-          onClose={() => setToast((prev) => ({ ...prev, show: false }))}
-        />
+        {toast.show && (
+          <Toast
+            show={toast.show}
+            type={toast.type}
+            message={toast.message}
+            onClose={() => setToast({ ...toast, show: false })}
+          />
+        )}
       </DashboardLayout>
     </ProtectedRoute>
   );
